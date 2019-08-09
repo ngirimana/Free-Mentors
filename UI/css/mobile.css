@@ -1,0 +1,226 @@
+@media screen and (max-width: 768px) {
+  .heading {
+    width: inherit;
+  }
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+  #navbar {
+    display: none
+  }
+  /*showcase*/
+  #showcase {
+    height: 100%;
+    background: RGBA(12, 11, 11, 0.82);
+  }
+  #showcase .showcase-content {
+    padding-top: 70px;
+    padding-bottom: 30px;
+  }
+  #showcase .showcase-content h1, .viewMentor .showcase-content h1 {
+    font-size: 30px;
+    padding-bottom: 20px;
+  }
+  #showcase .showcase-content p {
+    font-size: 15px;
+  }
+  .bg-color {
+    min-height: 460px;
+    background: none;
+  }
+  #advantages {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.5rem;
+    height: 800px;
+  }
+  #advantages .mentor {
+    height: 420px;
+  }
+  #advantages .mentee {
+    height: 380;
+  }
+  .career-items {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .social-media {
+    margin: 10px;
+  }
+  .career-items div img {
+    width: 50%;
+    height: 50%;
+    margin: 25px 25% 10px 25%;
+  }
+  .user-form {
+    width: 100%;
+  }
+  .user-form .form-group {
+    width: 90%;
+    margin: 10px auto;
+  }
+  .login-padding {
+    padding-top: 100px;
+  }
+  .user-form h1 {
+    font-size: 1rem;
+    width: 80%;
+  }
+  .user-form .form-group input, textarea {
+    width: 90%;
+    font-size: 1rem;
+  }
+  .helper {
+    width: 80%;
+    text-decoration: underline;
+  }
+  .helper a {
+    font-size: 0.8rem;
+  }
+  span a {
+    width: 40%;
+    text-decoration: underline;
+    font-size: 0.8rem;
+  }
+  .mentors, .mentee {
+    width: 90%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+  .mentee .mentee-item div {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+  #secondary-btn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+  .mentor-btn {
+    width: 86%;
+  }
+  .mentor-name {
+    font-size: 1.2rem;
+    padding: 0.7rem;
+  }
+  .specific-mentor {
+    background: #F7F7F7;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 90%;
+    margin: 1rem auto;
+    height: rem;
+  }
+  .specific-mentor img {
+    width: 100%;
+  }
+  .specific-mentor div {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .mentor-data div a {
+    width: 80%;
+    margin: 15px 10px;
+  }
+  .heading {
+    width: inherit;
+  }
+  .btn {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: #fff;
+    background: #60CF80;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    opacity: 0.8;
+    width: 50%;
+    margin: 10px;
+    width: 40%;
+  }
+  .nepadding {
+    margin: 0px;
+  }
+  /*chat*/
+  .chat {
+    width: 98%;
+  }
+  .chat .chat-msg, .chat form {
+    width: 80%;
+  }
+  .chat .chat-msg {
+    height: 240px;
+  }
+  .dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  table {
+    border: 0;
+  }
+  table th, table td {
+    padding: .500rem;
+    text-align: center;
+  }
+  table caption {
+    font-size: 1.3em;
+  }
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table tr {
+    border-bottom: 3px solid #101d2c;
+    display: block;
+    margin-bottom: .625em;
+  }
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  table td:last-child {
+    border-bottom: 10;
+  }
+  .score{
+    width: 90%;
+    margin: 10px auto;
+    font-size: 1rem;
+  }
+  #forgot-input {
+    width: 200%;
+    margin-left: -70px;
+    font-size: 1rem;
+  }
+  #reset-msg{
+    width: 200%;
+    margin-left: -63px;
+  }
+  #close-subform{
+    margin-right: -73px;
+  }
+}
+@media screen and (min-width: 769px) {
+  .right {
+    display: none;
+  }
+}
