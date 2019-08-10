@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description"
+    content="Free Mentors is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions.">
+  <meta name="keywords" content="Mentors,mentorship,Free Mentors">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" media="Screen and (max-width:768px)" href="css/mobile.css">
+  <script src="https://kit.fontawesome.com/1ae30b6763.js"></script>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/mobile.css">
+  <script src="../js/script.js"></script>
+  <title>Free Mentors</title>
+</head>
+
+<body>
+  <header>
+    <nav id="navbar">
+      <div id="container">
+        <h1><a href="../index.html" Class="logo"><span class="max-a">Free Mentors</span></a> </h1>
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="./viewMentors.html">Mentors</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="right">
+      <h1><a href="index.html" Class="logo"><span>Free Mentors</span></a> </h1>
+      <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="../index.html">Home</a>
+        <a href="./viewMentors.html">Mentors</a>
+        <a href="#">Logout</a>
+      </div>
+      <span class="navbtn" onclick="openNav()">&#9776;</span>
+    </div>
+  </header>
+  <section>
+    <div class="container">
+      <div class="users">
+        <table class="orders">
+          <caption> My sessions</caption>
+          <thead>
+            <tr>
+              <th>SessionId</th>
+              <th>Mentor firstName</th>
+              <th>Mentor LastName</th>
+              <th> Mentor Email</th>
+              <th> Question</th>
+              <th>Add review</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="userid">1</td>
+              <td data-label="fname">Mwibutsa</td>
+              <td data-label="lname">Froribert</td>
+              <td data-label="email">fmwibutsa@yahoo.fr</td>
+              <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet autem repudiandae, sint minus quaerat nobis sunt quidem veniam asperiores eum deserunt omnis.
+              </td>
+              <td>
+                <button class="btn change-btn" onclick="window.location.href = './review-mentor.html';">Review</button>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="userid">2</td>
+              <td data-label="fname">Karangwa</td>
+              <td data-label="lname">victor</td>
+              <td data-label="email">karangwa@yahoo.fr</td>
+              <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet autem repudiandae, sint minus quaerat nobis sunt quidem veniam asperiores eum deserunt omnis.
+                Accusamus animi, dignissimos perferendis harum corrupti a obcaecati?
+              </td>
+              <td>
+                <button class=" btn change-btn" onclick="window.location.href = './review-mentor.html';">Review</button>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="userid">3</td>
+              <td data-label="fname">Mugiraneza</td>
+              <td data-label="lname">John</td>
+              <td data-label="email">mjon4@yahoo.fr</td>
+              <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet autem repudiandae, sint minus quaerat nobis sunt quidem veniam asperiores eum deserunt omnis.
+                Accusamus animi, dignissimos perferendis harum corrupti a obcaecati?
+              </td>
+              <td>
+                <button class="btn change-btn" onclick="window.location.href = './review-mentor.html';">Review</button>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="userid">4</td>
+              <td data-label="fname">cyiza</td>
+              <td data-label="lname">Fabrice</td>
+              <td data-label="email">fab@gmail.com</td>
+              <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Eveniet autem repudiandae, sint minus quaerat nobis sunt quidem veniam asperiores eum deserunt omnis.
+                Accusamus animi, dignissimos perferendis harum corrupti a obcaecati?
+              </td>
+              <td>
+                  <button class="btn change-btn" onclick="window.location.href = './review-mentor.html';">Review</button>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <footer id="main-footer">
+    <div class="social-media">
+      <h3 class="text-center lead-2">Find us on Social Media</h3>
+      <ul>
+        <li> <a href="https://www.facebook.com/chadrack.ngirimana"><i class="fab fa-facebook-f"> </i> </a> </li>
+        <li> <a href="https://www.linkedin.com/in/ngirimana-schadrack-650507162/"> <i class="fab fa-linkedin"></i></a>
+        </li>
+        <li> <a href="https://twitter.com/ngirimanasafi"> <i class="fab fa-twitter"></i></a></li>
+      </ul>
+    </div>
+    <div class="min-footer lead-2">
+      <p>
+        Free Mentors &copy; 2019,all Right reserved,
+        Designed by Schadrack
+      </p>
+    </div>
+  </footer>
+  <script src="../js/modal.js"></script>
+</body>
+
+</html>
