@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@
   <script src="../js/script.js"></script>
   <title>Free Mentors</title>
 </head>
+
 <body>
   <header>
     <nav id="navbar">
@@ -42,7 +44,11 @@
     <div class="container">
       <div class="heading">Send mentorship request to our mentor</div>
       <div class="chat">
-        <div class="chat-msg msg-border" id="mentee-msg" >
+
+        <div class="chat-msg msg-border" id="mentee-msg">
+          <div class="profile">
+            <img src="../img/mentor1.jpeg" alt="">
+          </div>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit.
             Eum id architecto inventore suscipit eaque assumenda fugit
@@ -52,7 +58,11 @@
             A autem odio dolor sed voluptate, vitae eius? Amet?
           </p>
         </div>
+
         <div class="chat-msg msg-border" id="mentor-msg">
+          <div class="profile">
+            <img src="../img/mentor5.png" alt="">
+          </div>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Dolorum amet labore totam praesentium assumenda,
@@ -66,7 +76,7 @@
         <form action="./viewMentors.html">
           <textarea type="text" name="msg" id="message" rows="10" class="msg-border"></textarea>
 
-        <button onclick="window.location.href = '../html/viewMentors.html'"class="btn">Send</button>
+          <button onclick="window.location.href = '../html/viewMentors.html'" class="btn">Send</button>
         </form>
       </div>
     </div>
@@ -90,4 +100,5 @@
     </div>
   </footer>
 </body>
+
 </html>
