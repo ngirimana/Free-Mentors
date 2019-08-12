@@ -155,7 +155,9 @@
     width: 80%;
   }
   .chat .chat-msg {
-    height: 240px;
+
+    height: 335px;
+
   }
   .dashboard {
     display: grid;
