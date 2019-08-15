@@ -133,8 +133,10 @@
   .btn {
     display: inline-block;
     font-size: 0.9rem;
-    color: #fff;
-    background: #60CF80;
+
+    color: #60CF80;
+    background: #fff;
+
     padding: 5px 10px;
     border: none;
     cursor: pointer;
@@ -144,6 +146,12 @@
     margin: 10px;
     width: 40%;
   }
+
+  .btn:hover {
+    background: #60CF80;
+    color: #fff;
+  }
+
   .nepadding {
     margin: 0px;
   }
@@ -155,9 +163,7 @@
     width: 80%;
   }
   .chat .chat-msg {
-
     height: 335px;
-
   }
   .dashboard {
     display: grid;

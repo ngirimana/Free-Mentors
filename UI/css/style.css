@@ -417,9 +417,7 @@ textarea {
   border: 1px solid grey;
 }
 .chat .chat-msg, .chat form {
-
   height: 180px;
-
   width: 90%;
   margin: 10px auto;
   font-size: 1rem;
@@ -564,7 +562,6 @@ table th {
 .default-display{
   display: none;
 }
-
 .profile{
   width: 100px;
   height: 100px;
