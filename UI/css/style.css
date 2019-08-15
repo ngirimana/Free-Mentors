@@ -32,9 +32,7 @@ a:hover {
 .logo span {
   color: #60CF80
 }
-a span:hover {
-  color: #717f86;
-}
+
 .lead {
   font-size: 20px;
   font-weight: bold;
@@ -527,7 +525,7 @@ table th {
   font-size: 1rem;
 }
 .showcase-conten-spc {
-  color: #64b37a;
+  color:#fff;
   text-align: center;
   padding-top: 50px;
 }
@@ -572,4 +570,6 @@ table th {
   height: 90px;
 border-radius: 50%;
 }
-
+.secondary-headin{
+color:#fff;
+}
