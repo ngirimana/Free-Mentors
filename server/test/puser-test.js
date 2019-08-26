@@ -11,9 +11,11 @@ chai.use(chaiHttp);
 
 const { email } = users[0];
 const adminToken = jwt.sign({ id: 1, is_admin: true, is_mentor: false }, 'secretKey');
+
 const mentorToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'secretKey');
 const menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'secretKey');
 const invalidToken = jwt.sign({ id: 0, is_admin: false, is_mentor: false }, 'secretKey');
+
 // signup tests
 // 0 incorrect route
 describe('0. incorrect route', () => {
@@ -357,6 +359,7 @@ describe('21 PATCH admin can change user to mentor,api/v1/auth/user/:id', () => 
       });
   });
 });
+
 // 25. check if user is  already a mentor
 describe('25. change to user to mentor to already a mentor', () => {
   it('should return  User is already a mentor!', (done) => {
@@ -440,3 +443,4 @@ describe('26 GET all Mentor with invlaid token,/api/v1/mentors ', () => {
       });
   });
 });
+

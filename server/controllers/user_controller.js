@@ -54,6 +54,7 @@ class UserController {
     return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: `${result.error.details[0].message}` });
   };
 
+
   // change user to mentor
   toMentor = (req, res) => {
     if (isNaN(req.params.id.trim())) {
@@ -67,6 +68,7 @@ class UserController {
   allmentors = (req, res) => {
     const mentors = User.getAllMentors(req, res);
     return res.status(200).send({ status: 200, data: { data: mentors } });
-  }
+ 
+
 }
 export default UserController;

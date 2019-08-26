@@ -110,6 +110,7 @@ class User {
     return result;
   };
 
+
   // change user to a mentor
   changeToMentor = (res, id) => {
     // check if user exists in our users
@@ -151,6 +152,7 @@ class User {
 
   // checking if user exist
   isUserExist = (user_id) => this.users.find((u) => u.id === user_id);
+
 
 
   // checking if email is taken
