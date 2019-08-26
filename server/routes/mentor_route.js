@@ -10,6 +10,7 @@ const user_controller = new UserController();
 
 // get all mentors
 router.get('/mentors', auth, user_controller.allmentors);
-
+// get specific mentor
+router.get('/mentors/:id', auth, user_controller.specificMentor);
 
 export default router;
