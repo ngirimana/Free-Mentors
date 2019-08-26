@@ -1,0 +1,59 @@
+{
+  "name": "free-mentors",
+  "version": "1.0.0",
+  "description": "Free Mentors is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
+    "start": " babel-node ./server/index.js",
+    "dev-start": " nodemon --exec babel-node ./server/index.js"
+  },
+  "keywords": [
+    "JavaScript",
+    "Node JS"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngirimana/Free-Mentors.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngirimana/Free-Mentors/issues"
+  },
+  "homepage": "https://github.com/ngirimana/Free-Mentors#readme",
+  "dependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@hapi/joi": "^15.1.0",
+    "babel-eslint": "^10.0.2",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "config": "^3.2.2",
+    "create-babelrc": "^1.0.0",
+    "dotenv": "^8.0.0",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mocha": "^6.2.0",
+    "node-datetime": "^2.1.2",
+    "nyc": "^14.1.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.1"
+  },
+  "engines": {
+    "node": "10.16.0"
+  }
+}
