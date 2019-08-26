@@ -110,6 +110,23 @@ class User {
     return result;
   };
 
+// change user to a mentor
+changeToMentor = (res, id) => {
+  // check if user exists in our users
+  const user = this.users.find((u) => u.id === parseInt(id, 10));
+  if (!user) return res.status(404).send({ status: 404, error: 'User is not found!' });
+  // check if user is already mentor
+
+  if (user.is_mentor) return res.status(409).send({ status: 409, error: 'User is already a mentor!' });
+  // Go a head and change user to mentor
+  user.is_mentor = true;
+  return user;
+}
+
+// checking if user exist
+isUserExist = (user_id) => this.users.find((u) => u.id === user_id);
+
+
   // checking if email is taken
   isEmailTaken = (email) => this.users.find((u) => u.email === email)
 }

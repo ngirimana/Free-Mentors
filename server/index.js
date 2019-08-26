@@ -3,13 +3,14 @@ import bodyParse from 'body-parser';
 import status from './helpers/StatusCode';
 import config from './config/default';
 import userRoute from './routes/user_route';
-
+import adminRoute from  './routes/admin_route'
 
 const app = express();
 
 app.use(bodyParse.json());
 // Custom path: For signin and signup endpoints
 app.use('/api/v1/auth', userRoute);
+app.use('/api/v1', adminRoute);
 
 // Default page
 app.use('/', (req, res) => {

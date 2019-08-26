@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
@@ -9,7 +10,7 @@ chai.use(chaiHttp);
 // let us take faked data
 
 const { email } = users[0];
-
+const adminToken = jwt.sign({ id: 1, is_admin: true, is_mentor: false }, 'secretKey');
 // signup tests
 // 0 incorrect route
 describe('0. incorrect route', () => {
@@ -282,6 +283,73 @@ describe('17. POST signin with wrong email, api/v1/auth/signin', () => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
         expect(res.body.error).to.equal('"email" must be a valid email');
+        done();
+      });
+  });
+});
+// 18 test    get all mentor when no mentor user
+describe('18 GET all Mentor when there is  no mentor user,/api/v1/mentors ', () => {
+  it('should return all mentors', (done) => {
+    chai.request(app)
+      .get('/api/v1/mentors')
+      .set('x-auth-token', adminToken)
+      .set('Accept', 'aplication/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.NOT_FOUND);
+        expect(res.body.error).to.equal('Mentors re not available');
+        expect(res.status).to.equal(status.NOT_FOUND);
+        done();
+      });
+  });
+});
+
+// 19 when id is not integer
+describe('19. change to mentor with an id not integer', () => {
+  it('should return Mentor id should be an integer ', (done) => {
+    chai.request(app)
+      .patch('/api/v1/user/q')
+      .set('x-auth-token', adminToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('Mentor id should be an integer');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        done();
+      });
+  });
+});
+
+// 20 when id is not not found
+
+describe('20. change to mentor with an id not not found', () => {
+  it('should return  User not found ', (done) => {
+    chai.request(app)
+      .patch('/api/v1/user/90000')
+      .set('x-auth-token', adminToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.NOT_FOUND);
+        expect(res.body.error).to.equal('User is not found!');
+        expect(res.status).to.equal(status.NOT_FOUND);
+        done();
+      });
+  });
+});
+
+// 21 change user to mentor
+describe('21 PATCH admin can change user to mentor,api/v1/auth/user/:id', () => {
+  it('should return User account changed to mentor', (done) => {
+    chai.request(app)
+      .patch('/api/v1/user/2')
+      .set('x-auth-token', adminToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
         done();
       });
   });
