@@ -54,13 +54,21 @@ class UserController {
     return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: `${result.error.details[0].message}` });
   };
 
-// change user to mentor
-toMentor = (req, res) => {
-  if (isNaN(req.params.id.trim())) {
-    return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: 'Mentor id should be an integer' });
+
+  // change user to mentor
+  toMentor = (req, res) => {
+    if (isNaN(req.params.id.trim())) {
+      return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: 'Mentor id should be an integer' });
+    }
+    const result = User.changeToMentor(res, req.params.id);
+    return res.status(200).send({ status: 200, data: { message: 'User account changed to mentor', data: result } });
   }
-  const result = User.changeToMentor(res, req.params.id);
-  return res.status(200).send({ status: 200, data: { message: 'User account changed to mentor', data: result } });
-}
+
+  // display all mentors
+  allmentors = (req, res) => {
+    const mentors = User.getAllMentors(req, res);
+    return res.status(200).send({ status: 200, data: { data: mentors } });
+ 
+
 }
 export default UserController;
