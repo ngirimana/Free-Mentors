@@ -11,7 +11,6 @@ chai.use(chaiHttp);
 
 const { email } = users[0];
 const adminToken = jwt.sign({ id: 1, is_admin: true, is_mentor: false }, 'secretKey');
-
 const mentorToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'secretKey');
 const menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'secretKey');
 const invalidToken = jwt.sign({ id: 0, is_admin: false, is_mentor: false }, 'secretKey');
@@ -444,3 +443,67 @@ describe('26 GET all Mentor with invlaid token,/api/v1/mentors ', () => {
   });
 });
 
+// 27 when id is not  integer
+describe('27. GET View specifc mentor with an id not an integer,/api/v1/mentors/:id', () => {
+  it('should return Mentor id should be an integer ', (done) => {
+    chai.request(app)
+      .get('/api/v1/mentors/q')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('Mentor id should be an integer');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        done();
+      });
+  });
+});
+
+// 28.when user id not found
+describe('28. GET view specific mentor with if id not found,/api/v1/mentors/:id', () => {
+  it('should return mentor with this id is not found', (done) => {
+    chai.request(app)
+      .get('/api/v1/mentors/1000')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.NOT_FOUND);
+        expect(res.status).to.equal(status.NOT_FOUND);
+        done();
+      });
+  });
+});
+
+// 29.when user id not a mentor
+describe('28. GET view specific mentor with if id not found,/api/v1/mentors/:id', () => {
+  it('should return mentor with this id is not mentor', (done) => {
+    chai.request(app)
+      .get('/api/v1/mentors/1')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        done();
+      });
+  });
+});
+
+// 30.when user id not a mentor
+describe('30. GET view specific mentor found,/api/v1/mentors/:id', () => {
+  it('should return specific mentor ', (done) => {
+    chai.request(app)
+      .get('/api/v1/mentors/2')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        done();
+      });
+  });
+});

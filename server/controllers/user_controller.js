@@ -68,7 +68,16 @@ class UserController {
   allmentors = (req, res) => {
     const mentors = User.getAllMentors(req, res);
     return res.status(200).send({ status: 200, data: { data: mentors } });
- 
+  }
 
+// view specific mentor
+specificMentor = (req, res) => {
+  if (isNaN(req.params.id.trim())) {
+    return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: 'Mentor id should be an integer' });
+  }
+  const result = User.uniqueMentor(res, req.params.id);
+  return res.status(200).send({ status: 200, data: { data: result } });
 }
+}
+
 export default UserController;
