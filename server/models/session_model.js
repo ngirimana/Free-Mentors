@@ -37,5 +37,25 @@ class Session {
     };
     return newSession;
   };
+
+  // accept sessions
+  accept = (res, id) => {
+    const session = this.sessions.find((sid) => sid.sessionId === parseInt(id, 10));
+    if (!session) {
+      return res.status(status.NOT_FOUND).send({
+        status: status.NOT_FOUND,
+        error: 'This session  is not found!',
+      });
+    }
+    if (session.status === 'Accept') {
+      return res.status(status.FORBIDDEN).send({
+        status: status.FORBIDDEN,
+        error: 'This session is already accepted',
+      });
+    }
+
+    session.status = 'Accept';
+    return session;
+  }
 }
 export default new Session();
