@@ -5,6 +5,7 @@ import config from './config/default';
 import userRoute from './routes/user_route';
 import adminRoute from './routes/admin_route';
 import mentorRoute from './routes/mentor_route';
+import sessionRoute from './routes/session_route';
 
 const app = express();
 app.use(bodyParse.json());
@@ -14,7 +15,10 @@ app.use('/api/v1/auth', userRoute);
 app.use('/api/v1', adminRoute);
 // view mentors
 app.use('/api/v1/', mentorRoute);
+// session route
+app.use('/api/v1/', sessionRoute);
 // Default page
+
 app.use('/', (req, res) => {
   res.status(status.NOT_FOUND).send({
     status: status.NOT_FOUND,

@@ -150,33 +150,47 @@ class User {
     return response;
   }
 
-// unique mentor
-uniqueMentor = (res, id) => {
-  const mentorUser = this.users.find((u) => u.id === parseInt(id, 10));
-  if (!mentorUser) return res.status(404).send({ status: 404, error: 'User is not found!' });
-  if (mentorUser.is_mentor === false) {
-    return res.status(400).send({ status: 400, error: 'User is not a mentor' });
-  }
+  // unique mentor
+  uniqueMentor = (res, id) => {
+    const mentorUser = this.users.find((u) => u.id === parseInt(id, 10));
+    if (!mentorUser) return res.status(404).send({ status: 404, error: 'User is not found!' });
+    if (mentorUser.is_mentor === false) {
+      return res.status(400).send({ status: 400, error: 'User is not a mentor' });
+    }
 
-  let response = [];
-  let mentor = {
-    mentorId: mentorUser.id,
-    first_name: mentorUser.first_name,
-    last_name: mentorUser.last_name,
-    email: mentorUser.email,
-    address: mentorUser.address,
-    bio: mentorUser.bio,
-    occupation: mentorUser.occupation,
-    expertise: mentorUser.expertise,
-  };
-  response.push(mentor);
-  return response;
-}
+    let response = [];
+    let mentor = {
+      mentorId: mentorUser.id,
+      first_name: mentorUser.first_name,
+      last_name: mentorUser.last_name,
+      email: mentorUser.email,
+      address: mentorUser.address,
+      bio: mentorUser.bio,
+      occupation: mentorUser.occupation,
+      expertise: mentorUser.expertise,
+    };
+    response.push(mentor);
+    return response;
+  }
 
   // checking if user exist
   isUserExist = (user_id) => this.users.find((u) => u.id === user_id);
 
   // checking if email is taken
   isEmailTaken = (email) => this.users.find((u) => u.email === email)
+
+  // check userif is mentor
+  checkMentor = (id) => {
+    const user = this.users.find((mentor) => mentor.id === parseInt(id, 10));
+    console.log(user.is_mentor);
+    if (user.is_mentor === true) { return true; }
+    return false;
+  }
+
+  // return user email
+  userEmail = (user_id) => {
+    const user = this.users.find((u) => u.id === parseInt(user_id, 10));
+    return user.email;
+  }
 }
 export default new User();
