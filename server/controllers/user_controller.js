@@ -32,5 +32,26 @@ class UserController {
     }
     return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: `${result.error.details[0].message}` });
   };
+
+  signIn = (req, res) => {
+    // validation of Request payload
+    // using JOI npm
+    const schema = {
+      email: Joi.string().email().required(),
+      password: Joi.required(),
+    };
+    const result = Joi.validate(req.body, schema);
+    if (result.error == null) {
+      // Everything is okay
+      // We fire up User model to login user
+      const user = User.login(req.body);
+      if (user.status === status.REQUEST_SUCCEDED) {
+        res.set('x-auth-token', user.data.token);
+        return res.status(status.REQUEST_SUCCEDED).send(user);
+      }
+      return res.status(status.UNAUTHORIZED).send(user);
+    }
+    return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: `${result.error.details[0].message}` });
+  };
 }
 export default UserController;

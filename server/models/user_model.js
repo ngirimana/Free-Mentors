@@ -86,9 +86,31 @@ class User {
 
     return newUser;
   };
+
+  login = (payload) => {
+    // check if user email and password exists
+    // in our user array
+    const user = this.users.find((Wuser) => (Wuser.email === payload.email)
+      && ((Wuser.password === payload.password)));
+    if (!user) {
+      return {
+        status: status.UNAUTHORIZED,
+        error: 'email or password is incorrect',
+      };
+    }
+    let result = {
+      token: generateAuthToken(user.id, user.is_admin, user.is_mentor),
+      id: user.id,
+    };
+    result = {
+      status: status.REQUEST_SUCCEEDED,
+      message: 'User is successfully logged in',
+      data: result,
+    };
+    return result;
+  };
+
   // checking if email is taken
   isEmailTaken = (email) => this.users.find((u) => u.email === email)
-
-
 }
 export default new User();
