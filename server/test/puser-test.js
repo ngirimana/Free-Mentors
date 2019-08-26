@@ -210,3 +210,79 @@ describe('12. POST sign up with wrong email api/v1/auth/signup', () => {
       });
   });
 });
+// 13 test of successfully login
+describe('13. POST signin successfully,api/v1/auth/signin', () => {
+  it('should return User is successfully logged in', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[5])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(200);
+        expect(res.body.data.token).to.be.a('string');
+        expect(res.body.data.id).to.be.a('number');
+        done();
+      });
+  });
+});
+// 14 test of wrong password
+describe('14. POST signin with wrong password,api/v1/auth/signin', () => {
+  it('should return email or password is incorrect ', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[6])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.UNAUTHORIZED);
+        expect(res.body.error).to.equal('email or password is incorrect');
+        done();
+      });
+  });
+});
+// 15 test for empty email
+describe('15. POST signin with empty email, api/v1/auth/signin', () => {
+  it('should return email is required', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[7])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"email" is required');
+        done();
+      });
+  });
+});
+// 16 test for empty password
+describe('16. POST signin with empty passwordd, api/v1/auth/signin', () => {
+  it('should return password is required', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[8])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"password" is required');
+        done();
+      });
+  });
+});
+// 17 test for wrong email
+describe('17. POST signin with wrong email, api/v1/auth/signin', () => {
+  it('should return email must be valid', (done) => {
+    chai.request(app)
+      .post('/api/v1/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[9])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"email" must be a valid email');
+        done();
+      });
+  });
+});
