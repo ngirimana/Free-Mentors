@@ -4,7 +4,7 @@ import status from '../helpers/StatusCode';
 
 const admin = (req, res, next) => {
   const token = req.header('x-auth-token');
-  if (!token) { return res.status(status.UNAUTHORIZED).send({ status: status.UNAUTHORIZED, error: 'Access denied. No token provided.' }) }
+  if (!token) { return res.status(status.UNAUTHORIZED).send({ status: status.UNAUTHORIZED, error: 'Access denied. No token provided.' }); }
 
   try {
     const decoded_jwt = jwt.verify(token, 'secretKey');
@@ -22,9 +22,10 @@ const admin = (req, res, next) => {
     }
     next();
   } catch (error) {
-    return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: error.message },
+    return res.status(status.BAD_REQUEST).send(
+      { status: status.BAD_REQUEST, error: error.message },
     );
   }
 };
 
-export default admin
+export default admin;
