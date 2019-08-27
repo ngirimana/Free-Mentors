@@ -42,5 +42,11 @@ class SessionController {
     const result = Session.reject(res, req.params.id);
     return res.status(200).send({ status: 200, data: { data: result } });
   }
+
+  // get sessions
+  yourOwnSessions = (req, res) => {
+    const ownSessions = Session.getYourSessions(req, res, req.header('x-auth-token'));
+    return res.status(200).send({ status: 200, data: { data: ownSessions } });
+  }
 }
 export default SessionController;

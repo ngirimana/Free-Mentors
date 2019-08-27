@@ -192,5 +192,11 @@ class User {
     const user = this.users.find((u) => u.id === parseInt(user_id, 10));
     return user.email;
   }
+
+  // return a certain  user basing on id
+  grabUserDetail = (user_id) => {
+    const user = this.users.find((u) => u.id === parseInt(user_id, 10));
+    return user;
+  }
 }
 export default new User();

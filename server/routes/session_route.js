@@ -15,6 +15,7 @@ router.post('/sessions', auth, session_controller.create);
 router.patch('/sessions/:id/accept', mentor, session_controller.acceptSession);
 // reject session
 router.patch('/sessions/:id/reject', mentor, session_controller.rejectSession);
-
+// get your sessions
+router.get('/sessions', auth, session_controller.yourOwnSessions);
 
 export default router;

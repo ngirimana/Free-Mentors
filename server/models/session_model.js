@@ -6,14 +6,14 @@ import User from './user_model';
 class Session {
   constructor() {
     this.sessions = [
-      {
+      /* {
         sessionId: 1,
         mentorId: 2,
         menteeId: 1,
         questions: 'fbsdbfsbdfwjsebfwjebfj fbvsdjbvskdzvb vdjzvb sjdvb sdzbv xsdzmv',
         menteeEmail: 'safari@gmail.com',
         status: 'pending',
-      },
+      }, */
     ];
   }
 
@@ -82,6 +82,27 @@ class Session {
     }
     session.status = 'Reject';
     return session;
+  }
+
+  // get sessions
+  getYourSessions = (req, res, token) => {
+    const user = User.grabUserDetail(userInfo(res, token));
+    if (user.is_mentor === false) {
+      const yourSessions = this.sessions.filter((session) => session.menteeId
+        === userInfo(res, token));
+      if (yourSessions.length === 0) {
+        return res.status(404).send({ status: 404, error: 'Your sessions  are not found!' });
+      }
+      return yourSessions;
+    }
+    if (user.is_mentor === true) {
+      const yourSessions = this.sessions.filter((session) => session.mentorId
+        === userInfo(res, token));
+      if (yourSessions.length === 0) {
+        return res.status(404).send({ status: 404, error: 'Your sessions  are not found!' });
+      }
+      return yourSessions;
+    }
   }
 }
 export default new Session();
