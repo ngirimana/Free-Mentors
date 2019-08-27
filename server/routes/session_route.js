@@ -3,6 +3,7 @@ import SessionController from '../controllers/session_controller';
 import ReviewController from '../controllers/review_controller';
 import auth from '../middleware/auth';
 import mentor from '../middleware/mentor';
+import admin from '../middleware/admin';
 
 const router = express.Router();
 
@@ -19,5 +20,7 @@ router.patch('/sessions/:id/reject', mentor, session_controller.rejectSession);
 router.get('/sessions', auth, session_controller.yourOwnSessions);
 // session review creation
 router.post('/sessions/:id/review', auth, review_controller.creatReview);
+// delete session review
+router.delete('/sessions/:id/review', admin, review_controller.deleteReview);
 
 export default router;

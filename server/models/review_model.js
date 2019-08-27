@@ -39,6 +39,17 @@ class Review {
     };
     return newReview;
   }
+
+  // delete review
+  remove = (id, res) => {
+    const review = this.reviews.find((r) => r.sessionId === parseInt(id, 10));
+
+    if (!review) return res.status(status.NOT_FOUND).send({ status: status.NOT_FOUND, error: 'Review is not found!' });
+
+    const index = this.reviews.indexOf(review);
+    this.reviews.splice(index, 1);
+    return res.status(200).send({ status: 200, data: { message: 'Review  successfully deleted' } });
+  }
 }
 
 export default new Review();
