@@ -19,13 +19,14 @@ class Session {
 
   // create sessions
   createSession = (res, payload, token) => {
+    let { mentorId, questions } = payload;
     let sessionid = this.sessions.length + 1;
 
     let newSession = {
       sessionId: sessionid,
-      mentorId: payload.mentorId,
+      mentorId,
       menteeId: userInfo(res, token),
-      questions: payload.questions,
+      questions,
       menteeEmail: User.userEmail(userInfo(res, token)),
       status: 'pending',
     };
@@ -104,5 +105,21 @@ class Session {
       return yourSessions;
     }
   }
+
+  mentorInfo = (res, id) => {
+    const anySession = this.sessions.find((session) => session.sessionId === parseInt(id, 10));
+    if (anySession) {
+      return anySession.mentorId;
+    }
+  }
+
+  /* /sessionStatus = (id) => {
+    const session = this.sessions.find((sessionId) => sessionId === parseInt(id, 10));
+    if (session.status === 'Accept') {
+      return true;
+    }
+  }/ */
+
+  uniqueSession = (id) => this.sessions.find((session) => session.sessionId === parseInt(id, 10));
 }
 export default new Session();
