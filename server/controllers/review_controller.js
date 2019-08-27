@@ -28,6 +28,14 @@ class ReviewController {
     }
     return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: `${result.error.details[0].message}` });
   }
+
+  // delete review
+  deleteReview = (req, res) => {
+    if (isNaN(req.params.id.trim())) {
+      return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: 'Session id should be an integer' });
+    }
+    Review.remove(req.params.id, res);
+  }
 }
 
 export default ReviewController;
