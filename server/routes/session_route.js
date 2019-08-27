@@ -13,6 +13,8 @@ const session_controller = new SessionController();
 router.post('/sessions', auth, session_controller.create);
 // accept sessions
 router.patch('/sessions/:id/accept', mentor, session_controller.acceptSession);
+// reject session
+router.patch('/sessions/:id/reject', mentor, session_controller.rejectSession);
 
 
 export default router;

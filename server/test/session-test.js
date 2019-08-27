@@ -227,3 +227,109 @@ describe('38 . PATCH mentor can accept session ehen session is not integer', () 
       });
   });
 });
+
+describe('39 . PATCH mentor can reject session', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
+      mentorToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return session data ', (done) => {
+    chai.request(app)
+      .patch('/api/v1/sessions/1/reject')
+      .set('x-auth-token', mentorToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+
+describe('40 . PATCH mentor can reject session ehen session is already accepted', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
+      mentorToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return already accepted ', (done) => {
+    chai.request(app)
+      .patch('/api/v1/sessions/2/reject')
+      .set('x-auth-token', mentorToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.FORBIDDEN);
+        expect(res.body.status).to.equal(status.FORBIDDEN);
+        expect(res.body.error).to.equal('This session is already accepted');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+describe('41 . PATCH mentor can reject session ehen session is not found', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
+      mentorToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return session id is not found ', (done) => {
+    chai.request(app)
+      .patch('/api/v1/sessions/9/reject')
+      .set('x-auth-token', mentorToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.NOT_FOUND);
+        expect(res.body.status).to.equal(status.NOT_FOUND);
+        expect(res.body.error).to.equal('this session  is not found!');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+
+describe('42 . PATCH mentor can reject session ehen session is not integer', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
+      mentorToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return session id is not integer ', (done) => {
+    chai.request(app)
+      .patch('/api/v1/sessions/q/reject')
+      .set('x-auth-token', mentorToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('Session id should be an integer');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
