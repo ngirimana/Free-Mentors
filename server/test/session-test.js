@@ -9,6 +9,7 @@ const { expect } = chai;
 chai.use(chaiHttp);
 let menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'secretKey');
 let mentorToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'secretKey');
+
 describe('31 . POST sessions ,/api/v1/sessions', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chadrack@gmail.com', password: 'safari1006' }).then((res) => {
@@ -245,7 +246,7 @@ describe('39 . PATCH mentor can accept session ehen session is not found', () =>
       });
   });
 });
-describe('40 . PATCH mentor can accept session ehen session is not integer', () => {
+describe('40 . PATCH mentor can accept session When session is not integer', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -470,6 +471,33 @@ describe('48 . Get sessions for mentee', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
         expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+
+
+describe('49 . Get sessions for mentee with invalid t0ken', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
+      menteeToken = res.body.data.id;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return invalid key ', (done) => {
+    chai.request(app)
+      .get('/api/v1/sessions')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
         done();
       })
       .catch((err) => {

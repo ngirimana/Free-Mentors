@@ -198,5 +198,14 @@ class User {
     const user = this.users.find((u) => u.id === parseInt(user_id, 10));
     return user;
   }
+
+  // fullname
+  fullName = (id, res) => {
+    const user = this.users.find((user) => user.id === parseInt(id, 10));
+    if (user) {
+      return `${user.first_name} ${user.last_name}`;
+    }
+    return res.status(404).send({ status: 404, error: 'User is not found!' });
+  }
 }
 export default new User();
