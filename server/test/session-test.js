@@ -7,8 +7,8 @@ import session from '../models/sessions';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-let menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'secretKey');
-let mentorToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'secretKey');
+let menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'process.env.SECRETEKEY');
+let mentorToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'process.env.SECRETEKEY');
 const p = 'hdfsdbvsdbvvv vdbbdbv jdsb vjvdhvbsjddbv';
 
 describe('31 . POST sessions ,/api/v1/sessions', () => {

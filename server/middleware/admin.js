@@ -1,13 +1,16 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import User from '../models/user_model';
 import status from '../helpers/StatusCode';
+
+dotenv.config();
 
 const admin = (req, res, next) => {
   const token = req.header('x-auth-token');
   if (!token) { return res.status(status.UNAUTHORIZED).send({ status: status.UNAUTHORIZED, error: 'Access denied. No token provided.' }); }
 
   try {
-    const decoded_jwt = jwt.verify(token, 'secretKey');
+    const decoded_jwt = jwt.verify(token, 'process.env.SECRETEKEY');
     // Go ahead and grab user_id from JWT
     // and find if that id exists in our users[](later on would be)\
     // because we can not trust that user still exists
