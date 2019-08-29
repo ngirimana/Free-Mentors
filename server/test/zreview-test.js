@@ -7,8 +7,8 @@ import reviews from '../models/reviews';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-let menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'secretKey');
-let adminToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'secretKey');
+let menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'process.env.SECRETEKEY');
+let adminToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'process.env.SECRETEKEY');
 const p = 'dfbgjsbvjbjdxbc jdxfbjdfvjdjfvx jdzx vjdx zdzjxv jzxbv jdz';
 
 describe('52 . POST sessions  when id not found,/api/v1/sessions/sessionId/review', () => {

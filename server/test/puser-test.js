@@ -10,10 +10,10 @@ chai.use(chaiHttp);
 // let us take faked data
 
 const { email } = users[0];
-const adminToken = jwt.sign({ id: 1, is_admin: true, is_mentor: false }, 'secretKey');
-const mentorToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'secretKey');
-const menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'secretKey');
-const invalidToken = jwt.sign({ id: 0, is_admin: false, is_mentor: false }, 'secretKey');
+const adminToken = jwt.sign({ id: 1, is_admin: true, is_mentor: false }, 'process.env.SECRETEKEY');
+const mentorToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'process.env.SECRETEKEY');
+const menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'process.env.SECRETEKEY');
+const invalidToken = jwt.sign({ id: 0, is_admin: false, is_mentor: false }, 'process.env.SECRETEKEY');
 
 // signup tests
 // 0 incorrect route
