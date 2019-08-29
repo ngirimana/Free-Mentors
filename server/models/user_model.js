@@ -195,7 +195,7 @@ class User {
 
   // return a certain  user basing on id
   grabUserDetail = (user_id) => {
-    const user = this.users.find((u) => u.id === parseInt(user_id, 10));
+    const user = this.users.find((anyuser) => anyuser.id === parseInt(user_id, 10));
     return user;
   }
 
