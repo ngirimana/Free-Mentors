@@ -6,6 +6,7 @@ Free Mentors is a social initiative where accomplished professionals become role
 
 ## Getting Started
 
+
 These are steps that should be followed by anyone who want toget a copy of project
 
 The project is composed of two different sections:
@@ -18,6 +19,7 @@ The project is composed of two different sections:
     * Any Web Browser (We recommend using Google Chrome)
     * Text Editor (VSCode is highly recommende)
     * User inteface login credential for mentor and admin
+
       ##### For admin
         * Email :admin@gmail.com
         * password :admin
@@ -58,10 +60,6 @@ The project is composed of two different sections:
       2. POST /sessions/:sessionId/review
       3. DELETE /sessions/:sessionId/review
 
-
-
-### Cloning the project from Github
-
 * use git bash:
    1. First [download](https://git-scm.com/downloads) git bash
    2. Install it
@@ -88,8 +86,8 @@ The project is composed of two different sections:
   - Just run `index.html` from the cloned project
   - OR simply use gh-page to run [Free-Mentors UI ](https://github.com/ngirimana/Free-Mentors/UI/)
 
-
 ## Used tools
+
 * Server
    * Server side Framework: [Node JS](https://nodejs.org/)/[Express](https://expressjs.com/)
    * Linting Library: [ESLint](https://eslint.org)
@@ -97,12 +95,12 @@ The project is composed of two different sections:
    * Testing Framework: [Mocha](https://mochajs.org/)
    * Documentation Tools: [Swagger](https://swagger.io/tools/swagger-ui/)
 
+
 * User interface
+
    * CSS
    * HTML
    * JS
-
-
 ## Author
 
 [NGIRIMANA Schadrack](https://github.com/ngirimana/)
@@ -110,6 +108,7 @@ The project is composed of two different sections:
 ## License
 
 LICENCE - [LICENSE](LICENCE.md)
+
 
 ## Acknowledgments
 
