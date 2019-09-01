@@ -4,9 +4,9 @@ const userLogin = () => {
   const login_pass = document.querySelector('#login-pass');
   const loginDirection = document.querySelector('#login-button');
   const mentorEmail = 'mentor@gmail.com';
-  const mentorPass = 'mentor123';
+  const mentorPass = 'mentor';
   const adminEmail = 'admin@gmail.com';
-  const adminPass = 'admin123';
+  const adminPass = 'admin';
 
   loginDirection.addEventListener('click', () => {
     if (login_email.value === mentorEmail && login_pass.value === mentorPass) {
