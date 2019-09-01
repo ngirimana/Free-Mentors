@@ -11,36 +11,6 @@ These are steps that should be followed by anyone who want toget a copy of proje
 The project is composed of two different sections:
 - User Interface
 - API
-##  Features
-   . Required Features
-      1. Users can sign up.
-      2. Users can sign in.
-      3. Admin can change a user to a mentor.
-      4. Users can view mentors.
-      5. Users can view a specific mentor.
-      6. Users can create a mentorship session request with a mentor.
-      7. A mentor can accept a mentorship session request.
-      8. A mentor can decline a mentorship session request.
-   . Optional Features
-      1. Users can view all their mentorship sessions.
-      2. Users can review a mentor after a mentorship session.
-      3. Admin can delete a review deemed as inappropriate.
-
-## API
-`` . Required API
-      1. POST /auth/signup
-      2. POST /auth/signin
-      3. PATCH /user/:userId
-      4. GET /mentors
-      5. GET/mentors/:mentorId
-      6. POST/sessions
-      7. PATCH /sessions/:sessionId/accept
-      8. PATCH /sessions/:sessionId/reject
-   . Optional
-      1. GET /sessions
-      2. POST /sessions/:sessionId/review
-      3. DELETE /sessions/:sessionId/review
-```
 
 ### Requirements
 
@@ -58,6 +28,37 @@ The project is composed of two different sections:
 * API Endpoints
    * Node JS
    * Postman
+##  Features
+   * Required Features
+      1. Users can sign up.
+      2. Users can sign in.
+      3. Admin can change a user to a mentor.
+      4. Users can view mentors.
+      5. Users can view a specific mentor.
+      6. Users can create a mentorship session request with a mentor.
+      7. A mentor can accept a mentorship session request.
+      8. A mentor can decline a mentorship session request.
+   * Optional Features
+      1. Users can view all their mentorship sessions.
+      2. Users can review a mentor after a mentorship session.
+      3. Admin can delete a review deemed as inappropriate.
+
+## API
+  * Required API
+      1. POST /auth/signup
+      2. POST /auth/signin
+      3. PATCH /user/:userId
+      4. GET /mentors
+      5. GET/mentors/:mentorId
+      6. POST/sessions
+      7. PATCH /sessions/:sessionId/accept
+      8. PATCH /sessions/:sessionId/reject
+   * Optional
+      1. GET /sessions
+      2. POST /sessions/:sessionId/review
+      3. DELETE /sessions/:sessionId/review
+
+
 
 ### Cloning the project from Github
 
@@ -88,7 +89,7 @@ The project is composed of two different sections:
   - OR simply use gh-page to run [Free-Mentors UI ](https://github.com/ngirimana/Free-Mentors/UI/)
 
 
-## Built With
+## Used tools
 * Server
    * Server side Framework: [Node JS](https://nodejs.org/)/[Express](https://expressjs.com/)
    * Linting Library: [ESLint](https://eslint.org)
@@ -96,7 +97,7 @@ The project is composed of two different sections:
    * Testing Framework: [Mocha](https://mochajs.org/)
    * Documentation Tools: [Swagger](https://swagger.io/tools/swagger-ui/)
 
-*U ser interface
+* User interface
    * CSS
    * HTML
    * JS
