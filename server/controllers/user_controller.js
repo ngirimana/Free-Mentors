@@ -1,5 +1,6 @@
 import Joi from '@hapi/joi';
 import User from '../models/user_model';
+import notNumber from '../helpers/notNumber';
 import status from '../helpers/StatusCode';
 
 class UserController {
@@ -57,9 +58,7 @@ class UserController {
 
   // change user to mentor
   toMentor = (req, res) => {
-    if (isNaN(req.params.id.trim())) {
-      return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: 'Mentor id should be an integer' });
-    }
+    notNumber(res, req.params.id);
     const result = User.changeToMentor(res, req.params.id);
     return res.status(200).send({ status: 200, data: { message: 'User account changed to mentor', data: result } });
   }
@@ -70,14 +69,12 @@ class UserController {
     return res.status(200).send({ status: 200, data: { data: mentors } });
   }
 
-// view specific mentor
-specificMentor = (req, res) => {
-  if (isNaN(req.params.id.trim())) {
-    return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: 'Mentor id should be an integer' });
+  // view specific mentor
+  specificMentor = (req, res) => {
+    notNumber(res, req.params.id);
+    const result = User.uniqueMentor(res, req.params.id);
+    return res.status(200).send({ status: 200, data: { data: result } });
   }
-  const result = User.uniqueMentor(res, req.params.id);
-  return res.status(200).send({ status: 200, data: { data: result } });
-}
 }
 
 export default UserController;

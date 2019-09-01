@@ -1,6 +1,7 @@
 import Joi from '@hapi/joi';
 import Session from '../models/session_model';
 import status from '../helpers/StatusCode';
+import notNumber from '../helpers/notNumber';
 import User from '../models/user_model';
 
 class SessionController {
@@ -25,21 +26,17 @@ class SessionController {
     return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: `${result.error.details[0].message}` });
   }
 
-  // accept sessions
+  // accept sessionsn
   acceptSession = (req, res) => {
-    if (isNaN(req.params.id.trim())) {
-      return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: 'Session id should be an integer' });
-    }
-    const result = Session.accept(res, req.params.id);
+    notNumber(res, req.params.id);
+    const result = Session.accept(res, req.params.id, req.header('x-auth-token'));
     return res.status(200).send({ status: 200, data: { data: result } });
   }
 
   // reject sessions
   rejectSession = (req, res) => {
-    if (isNaN(req.params.id.trim())) {
-      return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: 'Session id should be an integer' });
-    }
-    const result = Session.reject(res, req.params.id);
+    notNumber(res, req.params.id);
+    const result = Session.reject(res, req.params.id, req.header('x-auth-token'));
     return res.status(200).send({ status: 200, data: { data: result } });
   }
 

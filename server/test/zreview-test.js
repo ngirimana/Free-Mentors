@@ -60,7 +60,7 @@ describe('53 . POST user can review mentor When session is not integer', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(status.BAD_REQUEST);
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('Session id should be an integer');
+        expect(res.body.error).to.equal('Id should be an integer');
         done();
       })
       .catch((err) => {
@@ -140,7 +140,7 @@ describe('56 . DELETE admin can delete review demeed inappropriate,when id not i
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(status.BAD_REQUEST);
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('Session id should be an integer');
+        expect(res.body.error).to.equal('Id should be an integer');
         done();
       })
       .catch((err) => {
