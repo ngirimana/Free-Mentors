@@ -311,7 +311,7 @@ describe('18 GET all Mentor when there is  no mentor user,/api/v1/mentors ', () 
 
 // 19 when id is not integer
 describe('19. change to mentor with an id not integer', () => {
-  it('should return Mentor id should be an integer ', (done) => {
+  it('should return Id should be an integer ', (done) => {
     chai.request(app)
       .patch('/api/v1/user/q')
       .set('x-auth-token', adminToken)
@@ -319,7 +319,7 @@ describe('19. change to mentor with an id not integer', () => {
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('Mentor id should be an integer');
+        expect(res.body.error).to.equal('Id should be an integer');
         expect(res.status).to.equal(status.BAD_REQUEST);
         done();
       });
@@ -446,7 +446,7 @@ describe('26 GET all Mentor with invlaid token,/api/v1/mentors ', () => {
 
 // 27 when id is not  integer
 describe('27. GET View specifc mentor with an id not an integer,/api/v1/mentors/:id', () => {
-  it('should return Mentor id should be an integer ', (done) => {
+  it('should return Id should be an integer ', (done) => {
     chai.request(app)
       .get('/api/v1/mentors/q')
       .set('x-auth-token', menteeToken)
@@ -454,7 +454,7 @@ describe('27. GET View specifc mentor with an id not an integer,/api/v1/mentors/
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('Mentor id should be an integer');
+        expect(res.body.error).to.equal('Id should be an integer');
         expect(res.status).to.equal(status.BAD_REQUEST);
         done();
       });

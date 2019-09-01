@@ -6,19 +6,20 @@ Free Mentors is a social initiative where accomplished professionals become role
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+These are steps that should be followed by anyone who want toget a copy of project
 
 The project is composed of two different sections:
-- *UI (User Interface)*
-- *API *
-
+- User Interface
+- API
 
 ### Requirements
 
-* UI
+* User intrface
     * Any Web Browser (We recommend using Google Chrome)
     * Text Editor (VSCode is highly recommende)
-    * UI Login credential for mentor and admin
+    * User inteface login credential for mentor and admin
+
       ##### For admin
         * Email :admin@gmail.com
         * password :admin
@@ -28,9 +29,36 @@ The project is composed of two different sections:
 
 * API Endpoints
    * Node JS
-   * Postman (For testing api locally)
+   * Postman
+##  Features
+   * Required Features
+      1. Users can sign up.
+      2. Users can sign in.
+      3. Admin can change a user to a mentor.
+      4. Users can view mentors.
+      5. Users can view a specific mentor.
+      6. Users can create a mentorship session request with a mentor.
+      7. A mentor can accept a mentorship session request.
+      8. A mentor can decline a mentorship session request.
+   * Optional Features
+      1. Users can view all their mentorship sessions.
+      2. Users can review a mentor after a mentorship session.
+      3. Admin can delete a review deemed as inappropriate.
 
-### Cloning the project
+## API
+  * Required API
+      1. POST /auth/signup
+      2. POST /auth/signin
+      3. PATCH /user/:userId
+      4. GET /mentors
+      5. GET/mentors/:mentorId
+      6. POST/sessions
+      7. PATCH /sessions/:sessionId/accept
+      8. PATCH /sessions/:sessionId/reject
+   * Optional
+      1. GET /sessions
+      2. POST /sessions/:sessionId/review
+      3. DELETE /sessions/:sessionId/review
 
 * use git bash:
    1. First [download](https://git-scm.com/downloads) git bash
@@ -58,8 +86,8 @@ The project is composed of two different sections:
   - Just run `index.html` from the cloned project
   - OR simply use gh-page to run [Free-Mentors UI ](https://github.com/ngirimana/Free-Mentors/UI/)
 
+## Used tools
 
-## Built With
 * Server
    * Server side Framework: [Node JS](https://nodejs.org/)/[Express](https://expressjs.com/)
    * Linting Library: [ESLint](https://eslint.org)
@@ -67,27 +95,20 @@ The project is composed of two different sections:
    * Testing Framework: [Mocha](https://mochajs.org/)
    * Documentation Tools: [Swagger](https://swagger.io/tools/swagger-ui/)
 
-* UI Templates
+
+* User interface
+
    * CSS
    * HTML
    * JS
-
-
-## Contributing
-   1. Fork it
-   2. Create a branch (git checkout -b my_project)
-   3. Commit your changes (git commit -m "Added Stuff")
-   4. Push to the branch (git push origin my_project)
-   5. Create an [Issue](https://github.com/ngirimana/Free-Mentors/issues) with a link to your branch
-
-
 ## Author
 
 [NGIRIMANA Schadrack](https://github.com/ngirimana/)
 
 ## License
 
-This project is licensed using the MIT License - [LICENSE](LICENCE.md)
+LICENCE - [LICENSE](LICENCE.md)
+
 
 ## Acknowledgments
 

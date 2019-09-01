@@ -29,6 +29,7 @@
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/plug in-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@hapi/joi": "^15.1.0",
     "babel-eslint": "^10.0.2",

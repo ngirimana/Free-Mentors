@@ -45,6 +45,7 @@ class User {
         is_mentor: false,
         is_admin: false,
       },
+
     ];
   }
 
