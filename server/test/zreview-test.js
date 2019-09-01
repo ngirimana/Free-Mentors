@@ -230,7 +230,7 @@ describe('59 . DELETE admin can delete review demeed inappropriate with invalid 
   });
 });
 
-describe('56 . DELETE admin can delete review demeed inappropriate with invalid token', () => {
+describe('60 . DELETE admin can delete review demeed inappropriate with invalid token', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       adminToken = res.body.data.token;
