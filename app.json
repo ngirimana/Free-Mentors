@@ -13,7 +13,7 @@
       "url": "https://github.com/ngirimana/Free-Mentors/blob/develop/LICENSE.md"
     }
   },
-  "host": "https://free-mentors-web.herokuapp.com",
+  "host": "localhost:4000",
   "basePath": "/api/v1",
   "schemes": [
     "http"
