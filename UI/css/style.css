@@ -351,7 +351,7 @@ list-style:none;
 .user-form {
   width: 50%;
   margin: 10px auto;
-  max-height: 650px;
+  max-height: 100vh;
 }
 
 .user-form h1 {
@@ -536,7 +536,6 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   background-color: #F7F7F7;
-  ;
   grid-gap: 10px;
   width: 100%;
   justify-items: center;
