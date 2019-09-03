@@ -305,6 +305,11 @@ list-style:none;
   display: grid;
   grid-template-columns: 1fr 1fr;
   background: #101d2c;
+position: sticky;
+bottom:0;
+right: 0;
+left: 0;
+width:100%;
 }
 
 .social-media h3 {
@@ -506,6 +511,7 @@ textarea {
   width: 60%;
   margin: 10px auto;
   border: 1px solid grey;
+  height: 100vh;
 }
 
 .chat .chat-msg, .chat form {
@@ -697,4 +703,9 @@ height: 100vh;
 }
 #login-links{
 font-size:2.2rem;
+}
+@media screen and (min-width: 1440px) {
+.users{
+  height: 100vh;
+}
 }
