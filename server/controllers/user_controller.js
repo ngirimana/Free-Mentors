@@ -23,11 +23,10 @@ class UserController {
     const result = Joi.validate(req.body, schema);
     if (result.error === null) {
       if (User.isEmailTaken(req.body.email)) {
-        // 409 = Conflict due to existing email
+        // email exist
         return res.status(status.REQUEST_CONFLICT).send({ status: status.REQUEST_CONFLICT, error: `${req.body.email} is already taken` });
       }
-      // everything is ok
-      // we fire up user model to create user
+      // when
       const user = User.create(req.body);
       return res.status(status.RESOURCE_CREATED).send(user);
     }
@@ -35,16 +34,15 @@ class UserController {
   };
 
   signIn = (req, res) => {
-    // validation of Request payload
-    // using JOI npm
+    // request validation
     const schema = {
       email: Joi.string().email().required(),
       password: Joi.required(),
     };
     const result = Joi.validate(req.body, schema);
     if (result.error == null) {
-      // Everything is okay
-      // We fire up User model to login user
+      // when there is no error
+
       const user = User.login(req.body);
       if (user.status === status.REQUEST_SUCCEDED) {
         res.set('x-auth-token', user.data.token);
@@ -59,21 +57,21 @@ class UserController {
   // change user to mentor
   toMentor = (req, res) => {
     notNumber(res, req.params.id);
-    const result = User.changeToMentor(res, req.params.id);
-    return res.status(200).send({ status: 200, data: { message: 'User account changed to mentor', data: result } });
+    const data = User.changeToMentor(res, req.params.id);
+    return res.status(200).send({ status: 200, message: 'User account changed to mentor', data });
   }
 
   // display all mentors
   allmentors = (req, res) => {
     const mentors = User.getAllMentors(req, res);
-    return res.status(200).send({ status: 200, data: { data: mentors } });
+    return res.status(200).send({ status: 200, data: { mentors } });
   }
 
   // view specific mentor
   specificMentor = (req, res) => {
     notNumber(res, req.params.id);
-    const result = User.uniqueMentor(res, req.params.id);
-    return res.status(200).send({ status: 200, data: { data: result } });
+    const data = User.uniqueMentor(res, req.params.id);
+    return res.status(200).send({ status: 200, data });
   }
 }
 

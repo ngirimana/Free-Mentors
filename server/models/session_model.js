@@ -5,17 +5,9 @@ import User from './user_model';
 
 class Session {
   constructor() {
-    this.sessions = [
-      /* {
-        sessionId: 1,
-        mentorId: 2,
-        menteeId: 1,
-        questions: 'fbsdbfsbdfwjsebfwjebfj fbvsdjbvskdzvb vdjzvb sjdvb sdzbv xsdzmv',
-        menteeEmail: 'safari@gmail.com',
-        status: 'pending',
-      }, */
-    ];
+    this.sessions = [];
   }
+
 
   // create sessions
   createSession = (res, payload, token) => {
@@ -27,6 +19,7 @@ class Session {
       mentorId,
       menteeId: userInfo(res, token),
       questions,
+      mentorEmail: User.userEmail(mentorId),
       menteeEmail: User.userEmail(userInfo(res, token)),
       status: 'pending',
     };
@@ -115,12 +108,22 @@ class Session {
     }
   }
 
-  /* /sessionStatus = (id) => {
-    const session = this.sessions.find((sessionId) => sessionId === parseInt(id, 10));
+  // check if session is accepted
+  sessionStatus = (id) => {
+    const session = this.sessions.find((sid) => sid.sessionId === parseInt(id, 10));
     if (session.status === 'Accept') {
       return true;
     }
-  }/ */
+  }
+
+  // check if session is yours
+  checkYours=(id, token, res) => {
+    const mine = this.sessions.find((session) => session.sessionId === parseInt(id, 10));
+    if (mine.menteeId === userInfo(res, token)) {
+      return true;
+    }
+  }
+
 
   uniqueSession = (id) => this.sessions.find((session) => session.sessionId === parseInt(id, 10));
 }

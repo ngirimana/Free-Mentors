@@ -16,11 +16,12 @@ class ReviewController {
     if (result.error === null) {
       notNumber(res, req.params.id);
       if (!Session.uniqueSession(req.params.id)) return res.status(404).send({ status: 404, error: 'Your session with mentioned id is not found!' });
-      /* if (!Session.sessionStatus(req.params.id)) {
-        return res.status(status.FORBIDDEN).send({ status: status.FORBIDDEN, error:
-          'You should review
-        accepted session' });
-      } */
+      if (!Session.sessionStatus(req.params.id, req.header('x-auth-token'), res)) {
+        return res.status(status.FORBIDDEN).send({ status: status.FORBIDDEN, error: 'You should review accepted session' });
+      }
+      if (!Session.checkYours(req.params.id, req.header('x-auth-token'), res)) {
+        return res.status(status.FORBIDDEN).send({ status: status.FORBIDDEN, error: 'You should review your session only' });
+      }
       const review = Review.create(req, res, req.header('x-auth-token'));
       return res.status(200).send(review);
     }

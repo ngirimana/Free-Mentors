@@ -11,7 +11,7 @@ let menteeToken = jwt.sign({ id: 1, is_admin: false, is_mentor: false }, 'proces
 let adminToken = jwt.sign({ id: 1, is_admin: false, is_mentor: true }, 'process.env.SECRETEKEY');
 const p = 'dfbgjsbvjbjdxbc jdxfbjdfvjdjfvx jdzx vjdx zdzjxv jzxbv jdz';
 
-describe('52 . POST sessions  when id not found,/api/v1/sessions/sessionId/review', () => {
+describe('55 . POST sessions  when id not found,/api/v1/sessions/sessionId/review', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       menteeToken = res.body.data.token;
@@ -41,7 +41,7 @@ describe('52 . POST sessions  when id not found,/api/v1/sessions/sessionId/revie
 });
 
 
-describe('53 . POST user can review mentor When session is not integer', () => {
+describe('56 . POST user can review mentor When session is not integer', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       menteeToken = res.body.data.token;
@@ -68,7 +68,61 @@ describe('53 . POST user can review mentor When session is not integer', () => {
       });
   });
 });
-describe('54 . POST user can review mentor successfully', () => {
+describe('57 . POST user can review mentor When session is not accepted', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
+      menteeToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return session is not accepted ', (done) => {
+    chai.request(app)
+      .post('/api/v1/sessions/1/review')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .send(reviews[0])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.FORBIDDEN);
+        expect(res.body.status).to.equal(status.FORBIDDEN);
+        expect(res.body.error).to.equal('You should review accepted session');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+describe('58 . POST user can review mentor When session is not yours', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
+      menteeToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return session is not accepted ', (done) => {
+    chai.request(app)
+      .post('/api/v1/sessions/4/review')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .send(reviews[0])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.FORBIDDEN);
+        expect(res.body.status).to.equal(status.FORBIDDEN);
+        expect(res.body.error).to.equal('You should review your session only');
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+describe('59 . POST user can review mentor successfully', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       menteeToken = res.body.data.token;
@@ -79,7 +133,7 @@ describe('54 . POST user can review mentor successfully', () => {
   });
   it('should return session id is not accepted ', (done) => {
     chai.request(app)
-      .post('/api/v1/sessions/1/review')
+      .post('/api/v1/sessions/2/review')
       .set('x-auth-token', menteeToken)
       .set('Accept', 'application/json')
       .send(reviews[0])
@@ -94,7 +148,9 @@ describe('54 . POST user can review mentor successfully', () => {
       });
   });
 });
-describe('55 . POST user can review mentor successfully,wrong input', () => {
+
+
+describe('60 . POST user can review mentor successfully,wrong input', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       menteeToken = res.body.data.token;
@@ -122,7 +178,7 @@ describe('55 . POST user can review mentor successfully,wrong input', () => {
 });
 
 
-describe('56 . DELETE admin can delete review demeed inappropriate,when id not integer', () => {
+describe('61 . DELETE admin can delete review demeed inappropriate,when id not integer', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chadrack@gmail.com', password: 'safari1006' }).then((res) => {
       adminToken = res.body.data.token;
@@ -150,7 +206,7 @@ describe('56 . DELETE admin can delete review demeed inappropriate,when id not i
 });
 
 
-describe('57 . DELETE admin can delete review demeed inappropriate,when id not found', () => {
+describe('62 . DELETE admin can delete review demeed inappropriate,when id not found', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chadrack@gmail.com', password: 'safari1006' }).then((res) => {
       adminToken = res.body.data.token;
@@ -176,7 +232,7 @@ describe('57 . DELETE admin can delete review demeed inappropriate,when id not f
       });
   });
 });
-describe('58 . DELETE admin can delete review demeed inappropriate successfully', () => {
+describe('63 . DELETE admin can delete review demeed inappropriate successfully', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chadrack@gmail.com', password: 'safari1006' }).then((res) => {
       adminToken = res.body.data.token;
@@ -203,7 +259,7 @@ describe('58 . DELETE admin can delete review demeed inappropriate successfully'
   });
 });
 
-describe('59 . DELETE admin can delete review demeed inappropriate with invalid token', () => {
+describe('64 . DELETE admin can delete review demeed inappropriate with invalid token', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       adminToken = res.body.data.token;
@@ -230,7 +286,7 @@ describe('59 . DELETE admin can delete review demeed inappropriate with invalid 
   });
 });
 
-describe('60 . DELETE admin can delete review demeed inappropriate with invalid token', () => {
+describe('65 . DELETE admin can delete review demeed inappropriate with invalid token', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       adminToken = res.body.data.token;

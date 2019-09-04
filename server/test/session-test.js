@@ -170,7 +170,7 @@ describe('36 . POST sessions successfully ,/api/v1/sessions', () => {
       });
   });
 });
-describe('36 . POST sessions successfully ,/api/v1/sessions', () => {
+describe('37 . POST sessions successfully ,/api/v1/sessions', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       menteeToken = res.body.data.token;
@@ -197,7 +197,34 @@ describe('36 . POST sessions successfully ,/api/v1/sessions', () => {
       });
   });
 });
-describe('37 . PATCH mentor can accept session', () => {
+describe('38 . POST sessions successfully ,/api/v1/sessions', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'vicky@gmail.com', password: 'rukundo1234' }).then((res) => {
+      menteeToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return Such user is not mentor ', (done) => {
+    console.log(session[3]);
+    chai.request(app)
+      .post('/api/v1/sessions')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .send(session[3])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+describe('39 . PATCH mentor can accept session', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -222,7 +249,33 @@ describe('37 . PATCH mentor can accept session', () => {
       });
   });
 });
-describe('38 . PATCH mentor can accept session ehen session is already accepted', () => {
+describe('40 . PATCH mentor can accept session', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
+      mentorToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return session data ', (done) => {
+    chai.request(app)
+      .patch('/api/v1/sessions/4/accept')
+      .set('x-auth-token', mentorToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+
+describe('41 . PATCH mentor can accept session ehen session is already accepted', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -248,7 +301,7 @@ describe('38 . PATCH mentor can accept session ehen session is already accepted'
       });
   });
 });
-describe('39 . PATCH mentor can accept session ehen session is not found', () => {
+describe('42 . PATCH mentor can accept session ehen session is not found', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -274,7 +327,7 @@ describe('39 . PATCH mentor can accept session ehen session is not found', () =>
       });
   });
 });
-describe('40 . PATCH mentor can accept session When session is not integer', () => {
+describe('43 . PATCH mentor can accept session When session is not integer', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -300,7 +353,7 @@ describe('40 . PATCH mentor can accept session When session is not integer', () 
       });
   });
 });
-describe('41 . PATCH mentor can reject session', () => {
+describe('44 . PATCH mentor can reject session', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -325,7 +378,7 @@ describe('41 . PATCH mentor can reject session', () => {
       });
   });
 });
-describe('42 . PATCH mentor can reject session ehen session is already rejected', () => {
+describe('44 . PATCH mentor can reject session ehen session is already rejected', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -351,7 +404,7 @@ describe('42 . PATCH mentor can reject session ehen session is already rejected'
       });
   });
 });
-describe('43 . PATCH mentor can reject session ehen session is already rejected', () => {
+describe('46 . PATCH mentor can reject session ehen session is already rejected', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -377,7 +430,7 @@ describe('43 . PATCH mentor can reject session ehen session is already rejected'
       });
   });
 });
-describe('44 . PATCH mentor can reject session ehen session is already accepted', () => {
+describe('47 . PATCH mentor can reject session ehen session is already accepted', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -403,7 +456,7 @@ describe('44 . PATCH mentor can reject session ehen session is already accepted'
       });
   });
 });
-describe('45 . PATCH mentor can reject session,with out prevellege ', () => {
+describe('48 . PATCH mentor can reject session,with out prevellege ', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -429,7 +482,7 @@ describe('45 . PATCH mentor can reject session,with out prevellege ', () => {
       });
   });
 });
-describe('46 . PATCH mentor can reject session,with invalid key ', () => {
+describe('49 . PATCH mentor can reject session,with invalid key ', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -454,7 +507,7 @@ describe('46 . PATCH mentor can reject session,with invalid key ', () => {
       });
   });
 });
-describe('47 . PATCH mentor can reject session ehen session is not found', () => {
+describe('50 . PATCH mentor can reject session ehen session is not found', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -480,7 +533,7 @@ describe('47 . PATCH mentor can reject session ehen session is not found', () =>
       });
   });
 });
-describe('48 . PATCH mentor can reject session ehen session is not integer', () => {
+describe('51 . PATCH mentor can reject session When session is not integer', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -506,7 +559,7 @@ describe('48 . PATCH mentor can reject session ehen session is not integer', () 
       });
   });
 });
-describe('49 . Get sessions for mentor', () => {
+describe('52 . Get sessions for mentor', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'chance@gmail.com', password: 'iradukunda' }).then((res) => {
       mentorToken = res.body.data.token;
@@ -532,7 +585,7 @@ describe('49 . Get sessions for mentor', () => {
   });
 });
 
-describe('50 . Get sessions for mentee', () => {
+describe('53 . Get sessions for mentee', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       menteeToken = res.body.data.token;
@@ -559,7 +612,7 @@ describe('50 . Get sessions for mentee', () => {
 });
 
 
-describe('51 . Get sessions for mentee with invalid t0ken', () => {
+describe('54 . Get sessions for mentee with invalid token', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v1/auth/signin').send({ email: 'safari@gmail.com', password: 'safari1006' }).then((res) => {
       menteeToken = res.body.data.id;

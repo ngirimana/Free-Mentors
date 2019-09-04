@@ -96,10 +96,11 @@ const users = [
     last_name: faker.name.lastName(),
     email: fakeEmail,
     password: faker.internet.password(10, true),
-    address: faker.city,
-    bio: faker.sentences,
-    occupation: faker.jobTitle,
-    expertise: faker.jobArea,
+    address: faker.address.city(),
+    bio: faker.lorem.sentence(),
+    occupation: faker.name.jobTitle(),
+    expertise: faker.name.jobArea(),
+
 
   },
   //* ********** 12 empty last_name
@@ -108,10 +109,10 @@ const users = [
     last_name: '',
     email: fakeEmail,
     password: faker.internet.password(10, true),
-    address: faker.city,
-    bio: faker.sentences,
-    occupation: faker.jobTitle,
-    expertise: faker.jobArea,
+    address: faker.address.city(),
+    bio: faker.lorem.sentence(),
+    occupation: faker.name.jobTitle(),
+    expertise: faker.name.jobArea(),
 
   },
   // ************ 13 empty password
@@ -120,10 +121,10 @@ const users = [
     last_name: faker.name.lastName(),
     email: fakeEmail,
     password: '',
-    address: faker.cit,
-    bio: faker.sentence,
-    occupation: faker.jobTitle,
-    expertise: faker.jobArea,
+    address: faker.address.city(),
+    bio: faker.lorem.sentence(),
+    occupation: faker.name.jobTitle(),
+    expertise: faker.name.jobArea(),
 
   },
   //* ************ 14 empty address
@@ -133,9 +134,9 @@ const users = [
     email: faker.name.firstName(),
     password: fakePassword,
     address: '',
-    bio: faker.sentences,
-    occupation: faker.jobTitle,
-    expertise: faker.jobArea,
+    bio: faker.lorem.sentences(),
+    occupation: faker.name.jobTitle(),
+    expertise: faker.name.jobArea(),
 
   },
   //* ************* 15 empty bio
@@ -144,10 +145,10 @@ const users = [
     last_name: faker.name.lastName(),
     email: faker.name.firstName(),
     password: fakePassword,
-    address: faker.city,
+    address: faker.address.city(),
     bio: '',
-    occupation: faker.jobTitle,
-    expertise: faker.jobArea,
+    occupation: faker.name.jobTitle(),
+    expertise: faker.name.jobArea(),
 
   },
   //* ************* 16 empty occupatiion
@@ -156,10 +157,10 @@ const users = [
     last_name: faker.name.lastName(),
     email: faker.name.firstName(),
     password: fakePassword,
-    address: faker.city,
-    bio: faker.sentences,
+    address: faker.address.city(),
+    bio: faker.lorem.sentences(),
     occupation: '',
-    expertise: faker.jobArea,
+    expertise: faker.name.jobArea(),
 
   },
   //* ************* 17 empty expertise
@@ -168,9 +169,9 @@ const users = [
     last_name: faker.name.lastName(),
     email: faker.name.firstName(),
     password: fakePassword,
-    address: faker.city,
-    bio: faker.sentences,
-    occupation: faker.jobTitle,
+    address: faker.address.city(),
+    bio: faker.lorem.sentences(),
+    occupation: faker.name.jobTitle(),
     expertise: '',
 
   },
