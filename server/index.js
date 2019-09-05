@@ -7,19 +7,21 @@ import userRoute from './routes/user_route';
 import adminRoute from './routes/admin_route';
 import mentorRoute from './routes/mentor_route';
 import sessionRoute from './routes/session_route';
+import errorHandler from './middleware/error.handler';
 
 import swaggerDocument from '../app.json';
 
 const app = express();
+
 app.use(bodyParse.json());
 // Custom path: For signin and signup endpoints
-app.use('/api/v1/auth', userRoute);
+app.use('/api/v1/auth', errorHandler, userRoute);
 // path for  changing user to a mentor
-app.use('/api/v1', adminRoute);
+app.use('/api/v1', errorHandler, adminRoute);
 // view mentors
-app.use('/api/v1/', mentorRoute);
+app.use('/api/v1/', errorHandler, mentorRoute);
 // session route
-app.use('/api/v1/', sessionRoute);
+app.use('/api/v1/', errorHandler, sessionRoute);
 // documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // default route
@@ -30,7 +32,7 @@ app.use('/', (req, res) => {
   });
 });
 
-
 const { port } = config;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
 export default app;

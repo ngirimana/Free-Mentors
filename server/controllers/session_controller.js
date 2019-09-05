@@ -30,20 +30,20 @@ class SessionController {
   acceptSession = (req, res) => {
     notNumber(res, req.params.id);
     const result = Session.accept(res, req.params.id, req.header('x-auth-token'));
-    return res.status(200).send({ status: 200, data: { data: result } });
+    return res.status(200).send({ status: 200, data: result });
   }
 
   // reject sessions
   rejectSession = (req, res) => {
     notNumber(res, req.params.id);
     const result = Session.reject(res, req.params.id, req.header('x-auth-token'));
-    return res.status(200).send({ status: 200, data: { data: result } });
+    return res.status(200).send({ status: 200, data: result });
   }
 
   // get sessions
   yourOwnSessions = (req, res) => {
     const ownSessions = Session.getYourSessions(req, res, req.header('x-auth-token'));
-    return res.status(200).send({ status: 200, data: { data: ownSessions } });
+    return res.status(200).send({ status: 200, data: ownSessions });
   }
 }
 export default SessionController;

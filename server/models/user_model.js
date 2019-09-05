@@ -45,6 +45,19 @@ class User {
         is_mentor: false,
         is_admin: false,
       },
+      {
+        id: 4,
+        first_name: ' rukundo',
+        last_name: ' victor',
+        email: 'vicky@gmail.com',
+        password: 'rukundo1234',
+        address: 'Musanze,Rwanda',
+        bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ',
+        occupation: 'Health Doctor',
+        expertise: 'Surgery',
+        is_mentor: false,
+        is_admin: false,
+      },
 
     ];
   }
@@ -82,7 +95,7 @@ class User {
     newUser = {
       status: status.RESOURCE_CREATED,
       message: 'User created successfully',
-      data: _.pick(newUser, ['token', 'id']),
+      data: _.pick(newUser, ['token', 'id', 'first_name', 'last_name', 'email', 'bio', 'address', 'occupation', 'expertise']),
     };
 
     return newUser;
@@ -102,6 +115,14 @@ class User {
     let result = {
       token: generateAuthToken(user.id, user.is_admin, user.is_mentor),
       id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      bio: user.bio,
+      address: user.address,
+      occupation: user.occupation,
+      expertise: user.expertise,
+
     };
     result = {
       status: status.REQUEST_SUCCEEDED,
@@ -122,7 +143,16 @@ class User {
     if (user.is_mentor) return res.status(409).send({ status: 409, error: 'User is already a mentor!' });
     // Go a head and change user to mentor
     user.is_mentor = true;
-    return user;
+    return {
+      id: user.id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email: user.email,
+      bio: user.bio,
+      address: user.address,
+      occupation: user.occupation,
+      expertise: user.expertise,
+    };
   }
 
   // get all mentors

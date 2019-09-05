@@ -48,7 +48,7 @@ class Review {
 
     const index = this.reviews.indexOf(review);
     this.reviews.splice(index, 1);
-    return res.status(200).send({ status: 200, data: { message: 'Review  successfully deleted' } });
+    return res.status(200).send({ status: 200, message: 'Review  successfully deleted', data: { review } });
   }
 }
 

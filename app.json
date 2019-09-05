@@ -13,10 +13,10 @@
       "url": "https://github.com/ngirimana/Free-Mentors/blob/develop/LICENSE.md"
     }
   },
-  "host": "localhost:4000",
   "basePath": "/api/v1",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "paths": {
     "/auth/signup": {
@@ -378,7 +378,7 @@
         }
       }
     },
-    "/session": {
+    "/sessions ": {
       "get": {
         "tags": [
           "View your session"
@@ -410,6 +410,85 @@
                 "status": "pending"
               }
             }
+          },
+          "404": {
+            "description": "Mentors are not available"
+          },
+          "403": {
+            "description": "You are not authorized to perform this action."
+          }
+        }
+      }
+    },
+    "/sessions/{id}/review": {
+      "post": {
+        "tags": [
+          "Create Mentorship session review"
+        ],
+        "summary": "Create mentorship session review",
+        "description": "",
+        "operationId": "create sessions review",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The value of user token"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created session object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/review"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "review created successfully"
+          },
+          "400": {
+            "description": "Bad request,Invalid input"
+          },
+          "404": {
+            "description": "session with mentioned id does not exist "
+          },
+          "403": {
+            "description": "You are not authorized to perform this action."
+          },
+          "401": {
+            "description": "The User associated with this token doesn't exist."
+          }
+        }
+      }
+    },
+    "/sessions/{id}/review ": {
+      "delete": {
+        "tags": [
+          "Delete session"
+        ],
+        "summary": "Return and delete sessson review demeed as inappropriate ",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth-token",
+            "in": "header",
+            "type": "string",
+            "description": "The value of user token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return deleted review"
           },
           "404": {
             "description": "Mentors are not available"
@@ -493,10 +572,6 @@
           "type": "string"
         }
       }
-    },
-    "externalDocs": {
-      "description": "Find out more about Swagger",
-      "url": "http://swagger.io"
     }
   }
 }
