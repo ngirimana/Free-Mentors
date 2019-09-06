@@ -31,7 +31,7 @@ class ReviewController {
   // delete review
   deleteReview = (req, res) => {
     notNumber(res, req.params.id);
-    Review.remove(req.params.id, res);
+    return Review.remove(req.params.id, res);
   }
 }
 

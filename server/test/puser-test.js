@@ -294,11 +294,10 @@ describe('17. POST signin with wrong email, api/v1/auth/signin', () => {
 });
 // 18 test    get all mentor when no mentor user
 describe('18 GET all Mentor when there is  no mentor user,/api/v1/mentors ', () => {
-  it('should return all mentors', (done) => {
+  it('should return mentors are not available', (done) => {
     chai.request(app)
       .get('/api/v1/mentors')
       .set('x-auth-token', adminToken)
-      .set('Accept', 'aplication/json')
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.body.status).to.equal(status.NOT_FOUND);

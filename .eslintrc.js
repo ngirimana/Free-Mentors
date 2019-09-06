@@ -20,6 +20,7 @@ module.exports = {
   "no-param-reassign":"off",
   "no-restricted-globals":"off",
    "no-restricted-syntax":"off",
+   "no-unreachable":"off"
 
 
 }
