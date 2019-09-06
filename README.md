@@ -63,7 +63,7 @@ The project is composed of two different sections:
 * use git bash:
    1. First [download](https://git-scm.com/downloads) git bash
    2. Install it
-   3. Clone it by running `git clone https://github.com/ngirimana/Free-Mentors.git`
+   3. Clone it by running ` git clone https://github.com/ngirimana/Free-Mentors.git`
    4. Find the project directory from where you are tunning the git bash.
 
 ### Installing
@@ -85,6 +85,9 @@ The project is composed of two different sections:
 
   - Just run `index.html` from the cloned project
   - OR simply use gh-page to run [Free-Mentors UI ](https://github.com/ngirimana/Free-Mentors/UI/)
+## Running API
+   - [Heroku link](/free-mentors-web.herokuapp.com/)
+   - [API documentation](https://free-mentors-web.herokuapp.com/api-docs)
 
 ## Used tools
 

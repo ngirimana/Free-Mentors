@@ -68,12 +68,9 @@ class User {
       first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor,
       is_admin,
     } = payload;
-    if (is_admin === undefined) {
-      is_admin = false;
-    }
-    if (is_mentor === undefined) {
-      is_mentor = false;
-    }
+    is_admin = false;
+    is_mentor = false;
+
 
     const currentId = this.users.length + 1;
     let newUser = {
@@ -91,7 +88,7 @@ class User {
       is_admin,
     };
     this.users.push(newUser);
-    console.log(newUser);
+    // console.log(newUser);
     newUser = {
       status: status.RESOURCE_CREATED,
       message: 'User created successfully',
