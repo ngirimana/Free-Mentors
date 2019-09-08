@@ -7,11 +7,8 @@ const router = express.Router();
 
 
 // creation of object
-const user_controller = new UserController();
+const { signUp } = UserController;
 
-router.post('/signup', userValidate, user_controller.signUp);
-
-// login user endpoint
-router.post('/signin', user_controller.signIn);
+router.post('/signup', userValidate, signUp);
 
 export default router;

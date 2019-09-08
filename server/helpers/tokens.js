@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const generateAuthToken = (id, admin, mentor) => {
-  const token = jwt.sign({ id, is_admin: admin, is_mentor: mentor }, 'process.env.SECRETEKEY');
+const generateAuthToken = (id, mentor, admin) => {
+  const token = jwt.sign({ id, is_mentor: mentor, is_admin: admin }, 'process.env.SECRETEKEY');
   return token;
 };
 

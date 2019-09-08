@@ -1,45 +1,67 @@
-import User from '../models/user_model';
-import notNumber from '../helpers/notNumber';
+import hashPassword from '../helpers/hashPassword';
+import Model from '../models/db';
+import generateAuthToken from '../helpers/tokens';
 import status from '../helpers/StatusCode';
 
 class UserController {
-  signUp = (req, res) => {
-    if (User.isEmailTaken(req.body.email)) {
-      // email exist
-      return res.status(status.REQUEST_CONFLICT).send({ status: status.REQUEST_CONFLICT, error: `${req.body.email} is already taken` });
+  static model() {
+    return new Model('users');
+  }
+
+  static signUp = async (req, res) => {
+    try {
+      let {
+        first_name,
+        last_name,
+        email,
+        password,
+        address,
+        bio,
+        occupation,
+        expertise,
+        is_mentor,
+        is_admin,
+      } = req.body;
+      is_mentor = false;
+      is_admin = false;
+      const user = await this.model().select('*', 'email=$1', [email]) || [];
+      if (user[0]) {
+        return res.status(status.REQUEST_CONFLICT).json({
+          status: status.REQUEST_CONFLICT,
+          error: `${email} already exists`,
+
+        });
+      }
+      password = await hashPassword.encryptPassword(password);
+
+      const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
+      const sels = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
+      const rows = await this.model().insert(columns, sels) || [];
+      if (rows.length) {
+        let token = generateAuthToken(rows[0].id, rows[0].is_mentor, rows[0].is_admin);
+
+        return res.status(status.RESOURCE_CREATED).json({
+          status: status.RESOURCE_CREATED,
+          message: 'User signed up successfully',
+          data: {
+            token,
+            first_name,
+            last_name,
+            email,
+            address,
+            bio,
+            occupation,
+            expertise,
+          },
+        });
+      }
+      return res.json(rows);
+    } catch (error) {
+      return res.status(500).json({
+        status: status.SERVER_ERROR,
+        error: error.message,
+      });
     }
-    const user = User.create(req.body);
-    return res.status(status.RESOURCE_CREATED).send(user);
-  }
-
-  signIn = (req, res) => {
-    const user = User.login(req.body);
-    if (user.status === status.REQUEST_SUCCEDED) {
-      res.set('x-auth-token', user.data.token);
-      return res.status(status.REQUEST_SUCCEDED).send(user);
-    }
-    return res.status(status.UNAUTHORIZED).send(user);
-  }
-
-
-  // change user to mentor
-  toMentor = (req, res) => {
-    notNumber(res, req.params.id);
-    const data = User.changeToMentor(res, req.params.id);
-    return res.status(200).send({ status: 200, message: 'User account changed to mentor', data });
-  }
-
-  // display all mentors
-  allmentors = (req, res) => {
-    const mentors = User.getAllMentors(req, res);
-    return res.status(200).send({ status: 200, data: { mentors } });
-  }
-
-  // view specific mentor
-  specificMentor = (req, res) => {
-    notNumber(res, req.params.id);
-    const data = User.uniqueMentor(res, req.params.id);
-    return res.status(200).send({ status: 200, data });
   }
 }
 
