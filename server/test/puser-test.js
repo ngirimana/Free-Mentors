@@ -247,51 +247,7 @@ describe('14. POST signin with wrong password,api/v1/auth/signin', () => {
       });
   });
 });
-// 15 test for empty email
-describe('15. POST signin with empty email, api/v1/auth/signin', () => {
-  it('should return email is required', (done) => {
-    chai.request(app)
-      .post('/api/v1/auth/signin')
-      .set('Accept', 'application/json')
-      .send(users[7])
-      .end((err, res) => {
-        expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"email" is required');
-        done();
-      });
-  });
-});
-// 16 test for empty password
-describe('16. POST signin with empty passwordd, api/v1/auth/signin', () => {
-  it('should return password is required', (done) => {
-    chai.request(app)
-      .post('/api/v1/auth/signin')
-      .set('Accept', 'application/json')
-      .send(users[8])
-      .end((err, res) => {
-        expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"password" is required');
-        done();
-      });
-  });
-});
-// 17 test for wrong email
-describe('17. POST signin with wrong email, api/v1/auth/signin', () => {
-  it('should return email must be valid', (done) => {
-    chai.request(app)
-      .post('/api/v1/auth/signin')
-      .set('Accept', 'application/json')
-      .send(users[9])
-      .end((err, res) => {
-        expect(res.body).to.be.an('object');
-        expect(res.body.status).to.equal(status.BAD_REQUEST);
-        expect(res.body.error).to.equal('"email" must be a valid email');
-        done();
-      });
-  });
-});
+
 // 18 test    get all mentor when no mentor user
 describe('18 GET all Mentor when there is  no mentor user,/api/v1/mentors ', () => {
   it('should return mentors are not available', (done) => {
