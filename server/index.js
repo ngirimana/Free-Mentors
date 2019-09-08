@@ -26,10 +26,7 @@ app.use('/api/v1/', errorHandler, sessionRoute);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // default route
 app.use('/', (req, res) => {
-  res.status(status.NOT_FOUND).send({
-    status: status.NOT_FOUND,
-    error: 'Incorrect route',
-  });
+  res.status(status.NOT_FOUND).send({ status: status.NOT_FOUND, error: 'Incorrect route' });
 });
 
 const { port } = config;
