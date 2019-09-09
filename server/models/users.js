@@ -8,7 +8,7 @@ const users = [
   {
     first_name: 'murera',
     last_name: 'amani',
-    email: 'amani@gmail.com',
+    email: 'niyo@gmail.com',
     password: 'amani444444',
     address: 'kigali,Rwanda',
     bio: 'I am very passionate about sport',
@@ -69,13 +69,13 @@ const users = [
   // for SignIn
   //* ****  6 correct signIn data
   {
-    email: 'murera@gmail.com',
+    email: 'niyo@gmail.com',
     password: 'amani444444',
   },
   //* ***** 7 incorrect password for signin
   {
-    email: 'murera@gmail.com',
-    password: 'password',
+    email: 'niyo@gmail.com',
+    password: 'amani4444444',
   },
   //* ****** 8 missing email
   {

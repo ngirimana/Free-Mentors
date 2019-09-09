@@ -4,8 +4,6 @@ import status from './StatusCode';
 
 dotenv.config();
 const getUserId = (res, token) => {
-  // decode token for the sake of picking user_id
-  // to use in setting trip owner.
   try {
     const decoded = jwt.verify(token, 'process.env.SECRETEKEY');
     return decoded.id;

@@ -13,7 +13,7 @@ class Connector {
       console.log('DB connection erorr', error);
     }
     this.pool.on('error', (err, client) => {
-      console.log('freeMentors-db-error: ', err);
+      console.log('free-mentors-db-error: ', err);
     });
   }
 }

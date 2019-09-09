@@ -26,7 +26,7 @@ describe('0. incorrect route', () => {
 describe('1 . POST signup with empty first_name ,api/v1/auth/signup', () => {
   it('should return first_name is required ', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Accept', 'application/json')
       .send(users[10])
       .end((err, res) => {
@@ -41,7 +41,7 @@ describe('1 . POST signup with empty first_name ,api/v1/auth/signup', () => {
 describe('2. POST sign up with empty last_name, api/v1/auth/signup', () => {
   it('should return last_name is required ', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Accept', 'application/json')
       .send(users[11])
       .end((err, res) => {
@@ -56,7 +56,7 @@ describe('2. POST sign up with empty last_name, api/v1/auth/signup', () => {
 describe('3. POST sign up with empty password, api/v1/auth/signup', () => {
   it('should return password is required', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Accept', 'application/json')
       .send(users[12])
       .end((err, res) => {
@@ -71,7 +71,7 @@ describe('3. POST sign up with empty password, api/v1/auth/signup', () => {
 describe('4. POST sign up with empty address, api/v1/auth/signup', () => {
   it('should return address is required', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Accept', 'application/json')
       .send(users[13])
       .end((err, res) => {
@@ -86,7 +86,7 @@ describe('4. POST sign up with empty address, api/v1/auth/signup', () => {
 describe('5. POST sign up with empty bio, api/v1/auth/signup', () => {
   it('should return bio is required', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Accept', 'application/json')
       .send(users[14])
       .end((err, res) => {
@@ -101,7 +101,7 @@ describe('5. POST sign up with empty bio, api/v1/auth/signup', () => {
 describe('6. POST sign up with empty occupation, api/v1/auth/signup', () => {
   it('should return occupation is required', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Accept', 'application/json')
       .send(users[15])
       .end((err, res) => {
@@ -116,13 +116,152 @@ describe('6. POST sign up with empty occupation, api/v1/auth/signup', () => {
 describe('7. POST sign up with empty expertise, api/v1/auth/signup', () => {
   it('should return expertise is required', (done) => {
     chai.request(app)
-      .post('/api/v1/auth/signup')
+      .post('/api/v2/auth/signup')
       .set('Accept', 'application/json')
       .send(users[16])
       .end((err, res) => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(status.BAD_REQUEST);
         expect(res.body.status).to.equal(status.BAD_REQUEST);
+        done();
+      });
+  });
+});
+
+describe('POST sign up successfully, api/v2/auth/signup', () => {
+  it('should return signup successful', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .set('Accept', 'application/json')
+      .send(users[0])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.RESOURCE_CREATED);
+        expect(res.body.status).to.equal(status.RESOURCE_CREATED);
+        done();
+      });
+  });
+});
+describe('POST email already exist, api/v2/auth/signup', () => {
+  it('should return {email} already exists', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .set('Accept', 'application/json')
+      .send(users[0])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.statusCode).to.equal(status.REQUEST_CONFLICT);
+        done();
+      });
+  });
+});
+describe('POST sign up with short password api/v2/auth/signup', () => {
+  it('should return error when user entered short password', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .set('Accept', 'application/json')
+      .send(users[3])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"password" length must be at least 10 characters long');
+        done();
+      });
+  });
+});
+describe('POST sign up with incomplete data api/v2/auth/signup', () => {
+  it('should return error when user signup details is incomplete', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .set('Accept', 'application/json')
+      .send(users[4])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"first_name" is required');
+        done();
+      });
+  });
+});
+describe('POST sign up with invalid email api/v2/auth/signup', () => {
+  it('should return error when user email is invalid', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .set('Accept', 'application/json')
+      .send(users[2])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"email" must be a valid email');
+        done();
+      });
+  });
+});
+describe('POST signin successfully, api/v2/auth/signin', () => {
+  it('should return signin successfullty status', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[5])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(200);
+        done();
+      });
+  });
+});
+describe('POST signin failed, api/v2/auth/signin', () => {
+  it('should return signin error status', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[6])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.UNAUTHORIZED);
+        expect(res.body.error).to.equal('Invalid Email or Password');
+        done();
+      });
+  });
+});
+describe('POST signin with incomplete data, api/v2/auth/signin', () => {
+  it('should return email is required', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[7])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"email" is required');
+        done();
+      });
+  });
+});
+describe('POST signin with incomplete data, api/v2/auth/signin', () => {
+  it('should return password is required', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[8])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"password" is required');
+        done();
+      });
+  });
+});
+describe('POST signin with invalid email, api/v2/auth/signin', () => {
+  it('should return email must be valid', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signin')
+      .set('Accept', 'application/json')
+      .send(users[9])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('"email" must be a valid email');
         done();
       });
   });

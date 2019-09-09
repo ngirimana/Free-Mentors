@@ -1,4 +1,5 @@
-import hashPassword from '../helpers/hashPassword';
+import encryptPassword from '../helpers/hashPassword';
+import  decryptPassword  from '../helpers/decreypt'
 import Model from '../models/queries';
 import generateAuthToken from '../helpers/tokens';
 import status from '../helpers/StatusCode';
@@ -32,7 +33,7 @@ class UserController {
 
         });
       }
-      password = await hashPassword.encryptPassword(password);
+      password = await encryptPassword(password);
 
       const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
       const data = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
@@ -60,6 +61,36 @@ class UserController {
       return res.status(500).json({
         status: status.SERVER_ERROR,
         error: error.message,
+      });
+    }
+  }
+  static signIn = async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const login = await this.model().select('*', 'email=$1', [email]);
+
+      if (login[0] && (decryptPassword(password, login[0].password))) {
+
+        let token = generateAuthToken(login[0].id, login[0].is_mentor, login[0].is_admin);
+
+        return res.status(status.REQUEST_SUCCEEDED).json({
+          status: status.REQUEST_SUCCEEDED,
+          message: 'user signed in successfully',
+          data: {
+            token
+          },
+
+        });
+      }
+
+      return res.status(status.UNAUTHORIZED).json({
+        status: status.UNAUTHORIZED,
+        error: 'Invalid Email or Password',
+      });
+    } catch (err) {
+      return res.status(status.SERVER_ERROR).json({
+        status: status.SERVER_ERROR,
+        error: err,
       });
     }
   }
