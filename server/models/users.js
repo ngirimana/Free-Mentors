@@ -8,7 +8,7 @@ const users = [
   {
     first_name: 'murera',
     last_name: 'amani',
-    email: 'murera@gmail.com',
+    email: 'amani@gmail.com',
     password: 'amani444444',
     address: 'kigali,Rwanda',
     bio: 'I am very passionate about sport',

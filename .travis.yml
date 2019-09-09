@@ -6,6 +6,12 @@ cache:
 language: node_js
 node_js:
   - "10"
+install:
+- npm install
+services:
+- postgresql
+before_script:
+- psql -c 'CREATE DATABASE wayfarer;' -U postgres
 notifications:
   email: false
 script:
