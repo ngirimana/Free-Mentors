@@ -11,12 +11,12 @@ import swaggerDocument from '../app.json';
 const app = express();
 
 app.use(bodyParse.json());
-// Custom path: For signin and signup endpoints
+
 app.use('/api/v1/auth', errorHandler, userRoute);
 
-// documentation
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-// default route
+
 app.use('/', (req, res) => {
   res.status(status.NOT_FOUND).send({ status: status.NOT_FOUND, error: 'Incorrect route' });
 });

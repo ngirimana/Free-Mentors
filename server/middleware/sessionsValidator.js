@@ -2,8 +2,6 @@ import Joi from 'joi';
 import status from '../helpers/StatusCode';
 
 const sessionValidate = (req, res, next) => {
-  // create sessions
-
   const schema = {
     mentorId: Joi.number().required(),
     questions: Joi.string().required(),
