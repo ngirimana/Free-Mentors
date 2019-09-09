@@ -1,5 +1,5 @@
 import hashPassword from '../helpers/hashPassword';
-import Model from '../models/db';
+import Model from '../models/queries';
 import generateAuthToken from '../helpers/tokens';
 import status from '../helpers/StatusCode';
 
@@ -35,8 +35,8 @@ class UserController {
       password = await hashPassword.encryptPassword(password);
 
       const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
-      const sels = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
-      const rows = await this.model().insert(columns, sels) || [];
+      const data = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
+      const rows = await this.model().insert(columns, data) || [];
       if (rows.length) {
         let token = generateAuthToken(rows[0].id, rows[0].is_mentor, rows[0].is_admin);
 
