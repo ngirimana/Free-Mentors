@@ -247,7 +247,7 @@ a:hover {
 
 #advantages div ul li {
   text-align: left;
-list-style:none;
+  list-style: none;
   padding: 5px;
   margin: 5px 10px;
 }
@@ -305,11 +305,22 @@ list-style:none;
   display: grid;
   grid-template-columns: 1fr 1fr;
   background: #101d2c;
-position: sticky;
-bottom:0;
-right: 0;
-left: 0;
-width:100%;
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+}
+
+.mentor-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #101d2c;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
 }
 
 .social-media h3 {
@@ -442,15 +453,15 @@ textarea {
   justify-self: center;
   align-self: end;
   z-index: 3;
-  width: 80%;
+  width: 90%;
   font-family: "Josefin Sans", sans-serif;
   font-size: 1.6rem;
   text-align: center;
-  padding: 1.25rem;
+  padding: 1.15rem;
   background-color: #101d2c;
   color: #fff;
   font-weight: 400;
-  transform: translateY(-50%);
+  transform: translateY(0%);
   opacity: 0.6;
   margin: 0 auto;
 }
@@ -482,6 +493,7 @@ textarea {
 
 .specific-mentor img {
   width: 100%;
+  height: 100%;
 }
 
 .specific-mentor label {
@@ -496,7 +508,7 @@ textarea {
   display: grid;
   grid-template-columns: 0.5fr 1fr;
   grid-gap: 10px;
-  padding: 10px;
+  padding: 0;
 }
 
 .mentor-data div a {
@@ -698,16 +710,17 @@ table th {
 .secondary-headin {
   color: #fff;
 }
-.mentor-fit{
-height: 100vh;
-}
-#login-links{
-font-size:2.2rem;
 
+/* .mentor-fit{
+height: 100%;
+} */
+
+#login-links {
+  font-size: 2.2rem;
 }
+
 @media screen and (min-width: 1440px) {
-.users{
-  height: 100vh;
-}
-
+  .users {
+    height: 100vh;
+  }
 }
