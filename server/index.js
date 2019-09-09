@@ -12,7 +12,7 @@ const app = express();
 
 app.use(bodyParse.json());
 
-app.use('/api/v1/auth', errorHandler, userRoute);
+app.use('/api/v2/auth', errorHandler, userRoute);
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

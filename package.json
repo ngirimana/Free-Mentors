@@ -4,8 +4,9 @@
   "description": "Free Mentors is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions.",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
-    "start": " babel-node ./server/index.js",
+    "test": "babel-node ./server/models/testQueries.js createTables && nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit",
+    "start": " npm run queries && babel-node ./server/index.js",
+    "queries": "babel-node ./server/models/testQueries.js createTables",
     "dev-start": " nodemon --exec babel-node ./server/index.js",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "showCoverage": "start coverage/server/index.html"
