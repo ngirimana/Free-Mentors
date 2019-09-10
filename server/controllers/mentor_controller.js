@@ -79,7 +79,7 @@ class MentorController {
     return res.status(status.REQUEST_SUCCEEDED).send({
       status: status.REQUEST_SUCCEEDED,
       message: `More informtion about user with id ${mentorId} are:`,
-      data: lodash.pick(mentor[0], 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise'),
+      data: lodash.pick(mentor[0], 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise'),
     });
   }
 }
