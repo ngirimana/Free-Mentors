@@ -5,6 +5,7 @@ import status from './helpers/StatusCode';
 import config from './config/default';
 import userRoute from './routes/user_route';
 import adminRoute from './routes/admin_route';
+import mentorRoute from './routes/mentor';
 import errorHandler from './middleware/error.handler';
 
 import swaggerDocument from '../app.json';
@@ -15,7 +16,7 @@ app.use(bodyParse.json());
 
 app.use('/api/v2/auth', errorHandler, userRoute);
 app.use('/api/v2', errorHandler, adminRoute);
-
+app.use('/api/v2', errorHandler, mentorRoute);
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
