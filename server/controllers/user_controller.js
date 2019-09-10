@@ -91,35 +91,41 @@ class UserController {
 
       const id = req.params.id;
       notNumber(id, res)
-      const mentor = await this.model().select('*', 'id=$1', [id]);
-      if (!mentor[0]) {
+
+      try {
+        const mentor = await this.model().select('*', 'id=$1', [id]);
+        if (mentor[0].is_mentor === true) {
+          return res.status(status.REQUEST_CONFLICT).send({
+            status: status.REQUEST_CONFLICT,
+            error: 'This user is already a mentor',
+          });
+        }
+        let result = await this.model().update('is_mentor=$1', 'id= $2', [true, mentor[0].id]);
+        return res.status(status.REQUEST_SUCCEEDED).send({
+          status: status.REQUEST_SUCCEEDED,
+          Message: 'User changed to a mentor successfully',
+          data: {
+            first_name: result.first_name,
+            last_name: result.last_name,
+            email: result.email,
+            address: result.address,
+            bio: result.bio,
+            occupation: result.occupation,
+            expertise: result.expertise,
+            is_mentor: result.is_mentor
+          }
+        });
+      }
+      catch(err){
         return res.status(status.NOT_FOUND).send({
           status: status.NOT_FOUND,
           error: `User with this id ${id} does not exist`,
         });
       }
-      if (mentor[0].is_mentor === true) {
-        return res.status(status.REQUEST_CONFLICT).send({
-          status: status.REQUEST_CONFLICT,
-          error: 'This user is already a mentor',
-        });
-      }
-      await this.model().update('is_mentor=$1', 'id= $2', [true, mentor[0].id]);
-      return res.status(status.REQUEST_SUCCEEDED).send({
-        status: status.REQUEST_SUCCEEDED,
-        Message: 'User changed to a mentor successfully',
-        data: {
-          first_name: mentor[0].first_name,
-          last_name: mentor[0].last_name,
-          email: mentor[0].email,
-          address: mentor[0].address,
-          bio: mentor[0].bio,
-          occupation: mentor[0].occupation,
-          expertise: mentor[0].expertise,
-          is_mentor: mentor[0].is_mentor,
-          is_admin: mentor[0].is_admin
-        }
-      });
+
+
+
+
 
   }
 }

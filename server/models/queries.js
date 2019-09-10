@@ -14,6 +14,7 @@ class Model {
     await this.connection.connect();
   }
 
+  // CRUD - READ Operation
   async select(columns, clause, values) {
     try {
       let query;
@@ -29,9 +30,11 @@ class Model {
     }
   }
 
+  // CRUD - CREATE Operation
   async insert(columns, selector, values) {
     const query = `INSERT INTO ${this.table} (${columns}) VALUES (${selector}) returning *`;
     try {
+      // console.log(query);
       const { rows } = await this.connection.pool.query(query, values);
       return rows;
     } catch (err) {
@@ -39,6 +42,7 @@ class Model {
     }
   }
 
+  // CRUD - UPDATE Operation
   async update(columns, clause, values) {
     const query = `UPDATE ${this.table} SET ${columns} WHERE ${clause} returning *`;
     try {
@@ -49,6 +53,7 @@ class Model {
     }
   }
 
+  // CRUD - DELETE Operation
   async delete(clause, values) {
     const query = `DELETE FROM ${this.table} WHERE ${clause} returning *`;
     try {
