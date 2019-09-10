@@ -9,7 +9,7 @@ pool.on('error', (err) => {
 });
 
 const createTables = pool.query(`DROP TABLE IF EXISTS users CASCADE;
-CREATE TABLE Users(
+CREATE TABLE users(
   id SERIAL NOT NULL PRIMARY KEY,
   first_name VARCHAR NOT NULL,
   last_name VARCHAR NOT NULL,

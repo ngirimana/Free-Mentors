@@ -175,5 +175,18 @@ const users = [
     expertise: '',
 
   },
+  {
+    first_name: 'patrick',
+    last_name: 'ishimwe',
+    email: 'ishimwe@gmail.com',
+    password: 'rwanda1234',
+    address: 'kigali,Rwanda',
+    bio: 'I am very passionate about sport',
+    occupation: 'caotch',
+    expertise: 'footbal',
+
+
+  },
+
 ];
 export default users;
