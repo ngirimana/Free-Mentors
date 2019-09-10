@@ -12,7 +12,6 @@ services:
 - postgresql
 before_script:
 - psql -c 'CREATE DATABASE free_mentors;' -U postgres
-
 notifications:
   email: false
 script:

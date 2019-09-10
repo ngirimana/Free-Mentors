@@ -17,6 +17,7 @@ app.use('/api/v2/auth', errorHandler, userRoute);
 app.use('/api/v2', errorHandler, adminRoute);
 
 
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/', (req, res) => {
