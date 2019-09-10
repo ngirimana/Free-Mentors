@@ -129,8 +129,6 @@ class UserController {
     const mentors = [];
     const ismentor = true;
     const mentor = await this.model().select('*', 'is_mentor=$1', [ismentor]);
-
-    console.log(mentor.length);
     for (let item = 0; item < mentor.length; item += 1) {
       mentors.push(lodash.pick(mentor[item],
         ['id', 'first_name', 'last_name', 'email',
@@ -146,6 +144,24 @@ class UserController {
       status: status.REQUEST_SUCCEEDED,
       message: 'Available mentors',
       data: mentors,
+    });
+  }
+
+  static getSpecificMentor = async (req, res) => {
+    const mentorId = req.params.id;
+    notNumber(mentorId, res);
+    const userStatus = true;
+    let mentor = await this.model().select('*', 'id=$1 AND is_mentor=$2', [mentorId, userStatus]);
+    if (!mentor[0]) {
+      return res.status(status.NOT_FOUND).send({
+        status: status.NOT_FOUND,
+        error: `Mentor with this Id ${mentorId} does not exist`,
+      });
+    }
+    return res.status(status.REQUEST_SUCCEEDED).send({
+      status: status.REQUEST_SUCCEEDED,
+      message: 'Request succeed',
+      data: lodash.pick(mentor[0], 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise'),
     });
   }
 }
