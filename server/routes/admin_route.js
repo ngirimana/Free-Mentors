@@ -1,11 +1,11 @@
 import express from 'express';
-import UserController from '../controllers/user_controller';
+import MentorController from '../controllers/mentor_controller';
 import admin from '../middleware/admin';
 
 
 const router = express.Router();
 
-const { changeToMentor } = UserController;
+const { changeToMentor } = MentorController;
 
 router.patch('/user/:id', admin, changeToMentor);
 
