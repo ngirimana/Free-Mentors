@@ -88,9 +88,9 @@ class UserController {
     }
   }
   static changeToMentor = async (req, res) => {
-    try {
+
       const id = req.params.id;
-      notNumber(req.params.id, res)
+      notNumber(id, res)
       const mentor = await this.model().select('*', 'id=$1', [id]);
       if (!mentor[0]) {
         return res.status(status.NOT_FOUND).send({
@@ -120,13 +120,7 @@ class UserController {
           is_admin: mentor[0].is_admin
         }
       });
-    }
-    catch (err) {
-      return res.status(status.SERVER_ERROR).json({
-        status: status.SERVER_ERROR,
-        error: err,
-      });
-    }
+
   }
 }
 export default UserController;
