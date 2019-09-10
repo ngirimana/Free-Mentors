@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
@@ -148,6 +148,20 @@ describe('POST sign up successfully, api/v2/auth/signup', () => {
       });
   });
 });
+describe('POST sign up successfully, api/v2/auth/signup', () => {
+  it('should return signup successful', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .set('Accept', 'application/json')
+      .send(users[17])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.RESOURCE_CREATED);
+        expect(res.body.status).to.equal(status.RESOURCE_CREATED);
+        done();
+      });
+  });
+});
 describe('POST email already exist, api/v2/auth/signup', () => {
   it('should return {email} already exists', (done) => {
     chai.request(app)
@@ -282,6 +296,22 @@ describe('18 GET all Mentor when there is  no mentor user,/api/v1/mentors ', () 
         expect(res.body.status).to.equal(status.NOT_FOUND);
         expect(res.body.error).to.equal('No mentors available');
         expect(res.status).to.equal(status.NOT_FOUND);
+        done();
+      });
+  });
+});
+// 19 when id is not integer
+describe('19. change to mentor with an id not integer', () => {
+  it('should return Id should be an integer ', (done) => {
+    chai.request(app)
+      .patch('/api/v2/user/q')
+      .set('x-auth-token', adminToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.error).to.equal('Id should be an integer');
+        expect(res.status).to.equal(status.BAD_REQUEST);
         done();
       });
   });

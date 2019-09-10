@@ -6,12 +6,6 @@ import status from '../helpers/StatusCode';
 
 dotenv.config();
 const model = new Model('users');
-const isUserExist = async (decodedId) => {
-  const user = await model.select('*', 'id=$1', [decodedId]);
-  if (user[0]) {
-    return true;
-  }
-};
 const auth = async (req, res, next) => {
   try {
     const token = req.header('x-auth-token');
@@ -30,4 +24,4 @@ const auth = async (req, res, next) => {
   }
 };
 
-export default { auth, isUserExist };
+export default { auth };
