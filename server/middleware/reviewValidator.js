@@ -2,8 +2,6 @@ import Joi from 'joi';
 import status from '../helpers/StatusCode';
 
 const reviewValidate = (req, res, next) => {
-  // create sessions
-
   const schema = {
     score: Joi.number().required(),
     remark: Joi.string().required(),
