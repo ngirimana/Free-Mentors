@@ -26,7 +26,7 @@ class UserController {
         is_admin,
       } = req.body;
       is_mentor = false;
-      is_admin = true;
+      is_admin = false;
       const user = await this.model().select('*', 'email=$1', [email]) || [];
       if (user[0]) {
         return res.status(status.REQUEST_CONFLICT).json({
