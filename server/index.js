@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import status from './helpers/StatusCode';
 import config from './config/default';
 import userRoute from './routes/user_route';
+import adminRoute from './routes/admin_route';
 import errorHandler from './middleware/error.handler';
 
 import swaggerDocument from '../app.json';
@@ -13,6 +14,8 @@ const app = express();
 app.use(bodyParse.json());
 
 app.use('/api/v2/auth', errorHandler, userRoute);
+app.use('/api/v2', errorHandler, adminRoute);
+
 
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
