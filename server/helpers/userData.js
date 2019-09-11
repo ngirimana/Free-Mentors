@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import status from './StatusCode';
 
 dotenv.config();
-const getUserId = (res, token) => {
+export const userId = (token, res) => {
   try {
     const decoded = jwt.verify(token, 'process.env.SECRETEKEY');
     return decoded.id;
@@ -11,5 +11,11 @@ const getUserId = (res, token) => {
     return res.status(status.BAD_REQUEST).send({ status: 400, error: error.message });
   }
 };
-
-export default getUserId;
+export const userEmail = (token, res) => {
+  try {
+    const decoded = jwt.verify(token, 'process.env.SECRETEKEY');
+    return decoded.email;
+  } catch (error) {
+    return res.status(status.BAD_REQUEST).send({ status: 400, error: error.message });
+  }
+};

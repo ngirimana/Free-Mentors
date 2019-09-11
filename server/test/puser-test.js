@@ -148,20 +148,6 @@ describe('POST sign up successfully, api/v2/auth/signup', () => {
       });
   });
 });
-describe('POST sign up successfully, api/v2/auth/signup', () => {
-  it('should return signup successful', (done) => {
-    chai.request(app)
-      .post('/api/v2/auth/signup')
-      .set('Accept', 'application/json')
-      .send(users[17])
-      .end((err, res) => {
-        expect(res.body).to.be.an('object');
-        expect(res.status).to.equal(status.RESOURCE_CREATED);
-        expect(res.body.status).to.equal(status.RESOURCE_CREATED);
-        done();
-      });
-  });
-});
 describe('POST email already exist, api/v2/auth/signup', () => {
   it('should return {email} already exists', (done) => {
     chai.request(app)
