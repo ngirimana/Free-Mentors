@@ -2,8 +2,9 @@ import dotenv from 'dotenv';
 import status from '../helpers/StatusCode';
 import Model from '../models/queries';
 import { userId, userEmail } from '../helpers/userData';
-import notNumber from '../helpers/notNumber';
 import { notFound, conflict, serverError } from '../helpers/response';
+import notNumber from '../helpers/notNumber';
+
 
 dotenv.config();
 class SessionController {
