@@ -3,7 +3,7 @@ import status from '../helpers/StatusCode';
 import Model from '../models/queries';
 import { userId, userEmail } from '../helpers/userData';
 import notNumber from '../helpers/notNumber';
-
+import { notFound, conflict, serverError } from '../helpers/response';
 
 dotenv.config();
 class SessionController {
@@ -49,14 +49,11 @@ class SessionController {
         data: row,
       });
     } catch (err) {
-      return res.status(500).json({
-        status: status.SERVER_ERROR,
-        error: err,
-      });
+      serverError(err, res);
     }
   }
 
-  static AcceptSession = async (req, res) => {
+  static acceptSession = async (req, res) => {
     const mentorData = userId(req.header('x-auth-token'), res);
     const { id } = req.params;
     notNumber(id, res);
@@ -64,22 +61,10 @@ class SessionController {
       const accept = await this.session().select('*', 'session_id=$1', [id]);
 
       if (!accept[0]) {
-        return res.status(status.NOT_FOUND).send({
-          status: status.NOT_FOUND,
-          error: `Session with id ${id} does not exist`,
-        });
+        notFound(id, res);
       }
       if (accept[0].status === 'accepted') {
-        return res.status(status.REQUEST_CONFLICT).send({
-          status: status.REQUEST_CONFLICT,
-          error: `Session with id ${id} is already accepted`,
-        });
-      }
-      if (accept[0].status === 'rejected') {
-        return res.status(status.REQUEST_CONFLICT).send({
-          status: status.REQUEST_CONFLICT,
-          error: `Session with id ${id} is already rejected`,
-        });
+        conflict(id, res);
       }
 
       if (accept[0].status === 'pending' && accept[0].mentor_id === mentorData) {
@@ -92,12 +77,10 @@ class SessionController {
         });
       }
     } catch (err) {
-      return res.status(status.SERVER_ERROR).send({
-        status: status.SERVER_ERROR,
-        error: err,
-      });
+      serverError(err, res);
     }
   }
+
 
   static rejectSession = async (req, res) => {
     const mentorDetail = userId(req.header('x-auth-token'), res);
@@ -107,22 +90,13 @@ class SessionController {
       const reject = await this.session().select('*', 'session_id=$1', [id]);
 
       if (!reject[0]) {
-        return res.status(status.NOT_FOUND).send({
-          status: status.NOT_FOUND,
-          error: `Session with id ${id} does not exist`,
-        });
+        notFound(id, res);
       }
       if (reject[0].status === 'accepted') {
-        return res.status(status.REQUEST_CONFLICT).send({
-          status: status.REQUEST_CONFLICT,
-          error: `Session with id ${id} is already accepted`,
-        });
+        conflict(id, res);
       }
       if (reject[0].status === 'rejected') {
-        return res.status(status.REQUEST_CONFLICT).send({
-          status: status.REQUEST_CONFLICT,
-          error: `Session with id ${id} is already rejected`,
-        });
+        conflict(id, res);
       }
 
       if (reject[0].status === 'pending' && reject[0].mentor_id === mentorDetail) {
@@ -135,10 +109,7 @@ class SessionController {
         });
       }
     } catch (err) {
-      return res.status(status.SERVER_ERROR).send({
-        status: status.SERVER_ERROR,
-        error: err,
-      });
+      serverError(err, res);
     }
   }
 }
