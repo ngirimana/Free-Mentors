@@ -39,7 +39,7 @@ INSERT INTO users (
 DROP TABLE IF EXISTS sessions CASCADE;
 CREATE TABLE sessions(
   session_id SERIAL NOT NULL PRIMARY KEY,
-  mentorId INTEGER NOT NULL,
+  mentor_id INTEGER NOT NULL,
   questions VARCHAR NOT NULL,
   mentee_id INTEGER NOT NULL,
   mentee_email VARCHAR NOT NULL,
