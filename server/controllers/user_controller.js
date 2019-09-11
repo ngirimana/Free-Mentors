@@ -58,7 +58,6 @@ static createAdminUser= async () => {
       }
       this.createAdminUser();
       password = await encryptPassword(password);
-      console.log(encryptPassword('safari1006'));
       const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
       const data = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
       const rows = await this.model().insert(columns, data) || [];

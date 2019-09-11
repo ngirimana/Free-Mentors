@@ -27,7 +27,6 @@ class SessionController {
       const menteeEmail = userEmail(req.header('x-auth-token'), res);
       notNumber(mentorId, res);
       const mentor = await this.model().select('*', 'id=$1', [mentorId]);
-      console.log(mentor);
       if (!mentor[0]) {
         return res.status(status.NOT_FOUND).send({
           status: status.NOT_FOUND,

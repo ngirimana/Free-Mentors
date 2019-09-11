@@ -12,5 +12,5 @@ const { signIn, signUp } = UserController;
 
 router.post('/signup', userValidate, signUp);
 router.post('/signin', signInValidator, signIn);
-console.log(process.env.NODE_ENV)
+
 export default router;
