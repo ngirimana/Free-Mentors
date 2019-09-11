@@ -39,6 +39,7 @@ class SessionController {
           error: `User with id ${mentorId} is not a mentor`,
         });
       }
+
       const columns = 'mentor_id, questions,mentee_id,mentee_email,status';
       const sessionData = `'${mentorId}', '${questions}', '${menteeId}', '${menteeEmail}','${Status}'`;
       let row = await this.session().insert(columns, sessionData);
@@ -49,6 +50,92 @@ class SessionController {
       });
     } catch (err) {
       return res.status(500).json({
+        status: status.SERVER_ERROR,
+        error: err,
+      });
+    }
+  }
+
+  static AcceptSession = async (req, res) => {
+    const mentorData = userId(req.header('x-auth-token'), res);
+    const { id } = req.params;
+    notNumber(id, res);
+    try {
+      const accept = await this.session().select('*', 'session_id=$1', [id]);
+
+      if (!accept[0]) {
+        return res.status(status.NOT_FOUND).send({
+          status: status.NOT_FOUND,
+          error: `Session with id ${id} does not exist`,
+        });
+      }
+      if (accept[0].status === 'accepted') {
+        return res.status(status.REQUEST_CONFLICT).send({
+          status: status.REQUEST_CONFLICT,
+          error: `Session with id ${id} is already accepted`,
+        });
+      }
+      if (accept[0].status === 'rejected') {
+        return res.status(status.REQUEST_CONFLICT).send({
+          status: status.REQUEST_CONFLICT,
+          error: `Session with id ${id} is already rejected`,
+        });
+      }
+
+      if (accept[0].status === 'pending' && accept[0].mentor_id === mentorData) {
+        await this.session().update('status=$1', 'session_id=$2', ['accepted', accept[0].session_id]);
+        const accepted = await this.session().select('*', 'session_id=$1', [id]);
+        return res.status(status.REQUEST_SUCCEEDED).send({
+          status: status.REQUEST_SUCCEEDED,
+          message: 'Mentorship session has been accepted',
+          data: accepted[0],
+        });
+      }
+    } catch (err) {
+      return res.status(status.SERVER_ERROR).send({
+        status: status.SERVER_ERROR,
+        error: err,
+      });
+    }
+  }
+
+  static rejectSession = async (req, res) => {
+    const mentorDetail = userId(req.header('x-auth-token'), res);
+    const { id } = req.params;
+    notNumber(id, res);
+    try {
+      const reject = await this.session().select('*', 'session_id=$1', [id]);
+
+      if (!reject[0]) {
+        return res.status(status.NOT_FOUND).send({
+          status: status.NOT_FOUND,
+          error: `Session with id ${id} does not exist`,
+        });
+      }
+      if (reject[0].status === 'accepted') {
+        return res.status(status.REQUEST_CONFLICT).send({
+          status: status.REQUEST_CONFLICT,
+          error: `Session with id ${id} is already accepted`,
+        });
+      }
+      if (reject[0].status === 'rejected') {
+        return res.status(status.REQUEST_CONFLICT).send({
+          status: status.REQUEST_CONFLICT,
+          error: `Session with id ${id} is already rejected`,
+        });
+      }
+
+      if (reject[0].status === 'pending' && reject[0].mentor_id === mentorDetail) {
+        await this.session().update('status=$1', 'session_id=$2', ['rejected', reject[0].session_id]);
+        const rejected = await this.session().select('*', 'session_id=$1', [id]);
+        return res.status(status.REQUEST_SUCCEEDED).send({
+          status: status.REQUEST_SUCCEEDED,
+          message: 'Mentorship session has been rejected',
+          data: rejected[0],
+        });
+      }
+    } catch (err) {
+      return res.status(status.SERVER_ERROR).send({
         status: status.SERVER_ERROR,
         error: err,
       });
