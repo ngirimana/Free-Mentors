@@ -1,13 +1,37 @@
+import dotenv from 'dotenv';
 import encryptPassword from '../helpers/hashPassword';
 import decryptPassword from '../helpers/decreypt';
 import Model from '../models/queries';
 import generateAuthToken from '../helpers/tokens';
 import status from '../helpers/StatusCode';
 
+dotenv.config();
 class UserController {
   static model() {
     return new Model('users');
   }
+
+static createAdminUser= async () => {
+  const sql = await this.model().select('*', 'email=$1', [process.env.EMAIL]) || [];
+  if (sql.length === 0) {
+    const adminPassword = await encryptPassword(process.env.PASSWORD);
+    const adminUser = {
+      first_name: 'rukundo',
+      last_name: 'jmv',
+      email: process.env.EMAIL,
+      password: adminPassword,
+      address: 'kigali',
+      bio: 'hdggshjhdsfjh nsdbfhbsjfbj nsdfbhsbdfjb hsdbfjsbfbf',
+      occupation: 'software engineer',
+      expertise: 'nodejs',
+      is_mentor: false,
+      is_admin: true,
+    };
+    const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
+    const adminData = `'${adminUser.first_name}', '${adminUser.last_name}', '${adminUser.email}', '${adminUser.password}','${adminUser.address}','${adminUser.bio}','${adminUser.occupation}','${adminUser.expertise}',${adminUser.is_mentor},${adminUser.is_admin}`;
+    return await this.model().insert(columns, adminData) || [];
+  }
+}
 
   static signUp = async (req, res) => {
     try {
@@ -32,12 +56,14 @@ class UserController {
           error: `${email} already exists`,
         });
       }
+      this.createAdminUser();
       password = await encryptPassword(password);
+      console.log(encryptPassword('safari1006'));
       const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
       const data = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
       const rows = await this.model().insert(columns, data) || [];
       if (rows.length) {
-        let token = generateAuthToken(rows[0].id, rows[0].is_mentor, rows[0].is_admin);
+        let token = generateAuthToken(rows[0].id,rows[0].email, rows[0].is_mentor, rows[0].is_admin);
         return res.status(status.RESOURCE_CREATED).json({
           status: status.RESOURCE_CREATED,
           message: 'User signed up successfully',
@@ -67,7 +93,8 @@ class UserController {
       const { email, password } = req.body;
       const login = await this.model().select('*', 'email=$1', [email]);
       if (login[0] && (decryptPassword(password, login[0].password))) {
-        let token = generateAuthToken(login[0].id, login[0].is_mentor, login[0].is_admin);
+        let token = generateAuthToken(login[0].id, login[0].email,
+          login[0].is_mentor, login[0].is_admin);
         return res.status(status.REQUEST_SUCCEEDED).json({
           status: status.REQUEST_SUCCEEDED,
           message: 'user signed in successfully',
