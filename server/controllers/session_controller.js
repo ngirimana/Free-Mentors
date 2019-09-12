@@ -22,11 +22,18 @@ class SessionController {
         mentorId,
         questions,
       } = req.body;
+
       const Status = 'pending';
       const menteeId = userId(req.header('x-auth-token'), res);
-
       const menteeEmail = userEmail(req.header('x-auth-token'), res);
-      notNumber(mentorId, res);
+      if (typeof mentorId !== 'number') {
+        return res.status(status.BAD_REQUEST).send(
+          {
+            status: status.BAD_REQUEST,
+            error: 'Id should be an integer',
+          },
+        );
+      }
       const mentor = await this.model().select('*', 'id=$1', [mentorId]);
       if (!mentor[0]) {
         return res.status(status.NOT_FOUND).send({
