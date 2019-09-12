@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "description": "Free Mentors is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions.",
-    "version": "V1",
+    "version": "V2",
     "title": "Free-Mentors",
     "termsOfService": "http://swagger.io/terms/",
     "contact": {
@@ -13,7 +13,7 @@
       "url": "https://github.com/ngirimana/Free-Mentors/blob/develop/LICENSE.md"
     }
   },
-  "basePath": "/api/v1",
+  "basePath": "/api/v2",
   "schemes": [
     "http",
     "https"
@@ -377,127 +377,6 @@
           }
         }
       }
-    },
-    "/sessions ": {
-      "get": {
-        "tags": [
-          "View your session"
-        ],
-        "summary": "Returns  mentor's session or mentee's sessions",
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-auth-token",
-            "in": "header",
-            "type": "string",
-            "description": "The value of user token"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "List of all mentor's or mentee's sessions",
-            "schema": {
-              "type": "object",
-              "example": {
-                "sessionId": 4,
-                "mentorId": 5,
-                "menteeId": 3,
-                "questions": "I need to nkow more about programming ,can you guide me?",
-                "menteeEmail": "angel@gmail.com",
-                "status": "pending"
-              }
-            }
-          },
-          "404": {
-            "description": "Mentors are not available"
-          },
-          "403": {
-            "description": "You are not authorized to perform this action."
-          }
-        }
-      }
-    },
-    "/sessions/{id}/review": {
-      "post": {
-        "tags": [
-          "Create Mentorship session review"
-        ],
-        "summary": "Create mentorship session review",
-        "description": "",
-        "operationId": "create sessions review",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-auth-token",
-            "in": "header",
-            "required": true,
-            "type": "string",
-            "description": "The value of user token"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Created session object",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/review"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "review created successfully"
-          },
-          "400": {
-            "description": "Bad request,Invalid input"
-          },
-          "404": {
-            "description": "session with mentioned id does not exist "
-          },
-          "403": {
-            "description": "You are not authorized to perform this action."
-          },
-          "401": {
-            "description": "The User associated with this token doesn't exist."
-          }
-        }
-      }
-    },
-    "/sessions/{id}/review ": {
-      "delete": {
-        "tags": [
-          "Delete session"
-        ],
-        "summary": "Return and delete sessson review demeed as inappropriate ",
-        "description": "",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "x-auth-token",
-            "in": "header",
-            "type": "string",
-            "description": "The value of user token"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "return deleted review"
-          },
-          "404": {
-            "description": "Mentors are not available"
-          },
-          "403": {
-            "description": "You are not authorized to perform this action."
-          }
-        }
-      }
     }
   },
   "definitions": {
@@ -558,17 +437,6 @@
           "type": "integer"
         },
         "questions": {
-          "type": "string"
-        }
-      }
-    },
-    "review": {
-      "type": "object",
-      "properties": {
-        "score": {
-          "type": "integer"
-        },
-        "remark": {
           "type": "string"
         }
       }

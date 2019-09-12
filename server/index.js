@@ -5,7 +5,7 @@ import status from './helpers/StatusCode';
 import config from './config/default';
 import userRoute from './routes/user_route';
 import adminRoute from './routes/admin_route';
-import mentorRoute from './routes/mentor';
+import mentorRoute from './routes/mentor_route';
 import sessionRoute from './routes/session_route';
 import errorHandler from './middleware/error.handler';
 

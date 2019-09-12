@@ -97,6 +97,7 @@ The project is composed of two different sections:
    * Style Guide: [Airbnb](https://github.com/airbnb/javascript)
    * Testing Framework: [Mocha](https://mochajs.org/)
    * Documentation Tools: [Swagger](https://swagger.io/tools/swagger-ui/)
+   * postgres:[postgress](https://node-postgres.com)
 
 
 * User interface
