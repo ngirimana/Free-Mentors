@@ -50,7 +50,7 @@ class MentorController {
     for (let item = 0; item < mentor.length; item += 1) {
       mentors.push(lodash.pick(mentor[item],
         ['id', 'first_name', 'last_name', 'email',
-          'address', 'bio', 'occupation', 'expertise']));
+          'address', 'bio', 'occupation', 'expertise', 'is_mentor', 'is_admin']));
     }
     if (mentors.length <= 0) {
       return res.status(status.NOT_FOUND).send({
@@ -79,7 +79,7 @@ class MentorController {
     return res.status(status.REQUEST_SUCCEEDED).send({
       status: status.REQUEST_SUCCEEDED,
       message: `More informtion about user with id ${mentorId} are:`,
-      data: lodash.pick(mentor[0], 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise'),
+      data: lodash.pick(mentor[0], 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise', 'is_mentor', 'is_admin'),
     });
   }
 }
