@@ -30,9 +30,11 @@ class UserController {
       };
       const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
       const adminData = `'${adminUser.first_name}', '${adminUser.last_name}', '${adminUser.email}', '${adminUser.password}','${adminUser.address}','${adminUser.bio}','${adminUser.occupation}','${adminUser.expertise}',${adminUser.is_mentor},${adminUser.is_admin}`;
-      const add= await this.model().insert(columns, adminData) || [];
+      const add = await this.model().insert(columns, adminData) || [];
     }
+    this.createAdminUser();
   }
+
 
   static signUp = async (req, res) => {
     try {
@@ -48,7 +50,13 @@ class UserController {
         is_mentor,
         is_admin,
       } = req.body;
-      is_mentor = false;
+      if (is_mentor === undefined) {
+        is_mentor = false;
+      }
+      if (is_admin === undefined) {
+        is_mentor = false;
+      }
+
       is_admin = false;
       const user = await this.model().select('*', 'email=$1', [email]) || [];
       if (user[0]) {
@@ -57,7 +65,7 @@ class UserController {
           error: `${email} already exists`,
         });
       }
-      this.createAdminUser();
+
       password = await encryptPassword(password);
       const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
       const data = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
