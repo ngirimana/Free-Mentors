@@ -45,7 +45,7 @@ class Model {
       const { rows } = await this.connection.pool.query(query, values);
       return rows[0];
     } catch (err) {
-      throw err;
+      console.log(err);
     }
   }
 

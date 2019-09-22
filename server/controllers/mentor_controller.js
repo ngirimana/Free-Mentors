@@ -2,6 +2,7 @@ import lodash from 'lodash';
 import Model from '../models/queries';
 import notNumber from '../helpers/notNumber';
 import status from '../helpers/StatusCode';
+import response from '../helpers/response';
 
 class MentorController {
   static model() {
@@ -11,34 +12,19 @@ class MentorController {
   static changeToMentor = async (req, res) => {
     const { id } = req.params;
     notNumber(id, res);
-
-    try {
-      const mentor = await this.model().select('*', 'id=$1', [id]);
-      if (!mentor) {
-        return res.status(status.NOT_FOUND).send({
-          status: status.NOT_FOUND,
-          error: `User with this id ${id} does not exist`,
-        });
-      }
-      if (mentor[0].is_mentor === true) {
-        return res.status(status.REQUEST_CONFLICT).send({
-          status: status.REQUEST_CONFLICT,
-          error: 'This user is already a mentor',
-        });
-      }
-      let result = await this.model().update('is_mentor=$1', 'id= $2', [true, mentor[0].id]);
-      return res.status(status.REQUEST_SUCCEEDED).send({
-        status: status.REQUEST_SUCCEEDED,
-        Message: 'User changed to a mentor successfully',
-        data: result,
-      });
-    } catch (err) {
-      return res.status(200).send({
-        status: 200,
-        error: err,
-      });
+    const mentor = await this.model().select('*', 'id=$1', [id]);
+    if (!mentor[0]) {
+      return response.errorMessage(req, res, status.NOT_FOUND, `No user available with id ${id}`);
     }
+    if (mentor[0].is_mentor === true) {
+      return response.errorMessage(req, res, status.REQUEST_CONFLICT, 'This user is already a mentor');
+    }
+    await this.model().update('is_mentor=$1', 'id= $2', [true, mentor[0].id]);
+    const output = await this.model().select('*', 'id=$1', [id]);
+    const data = lodash.pick(output[0], 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise', 'is_mentor', 'is_admin');
+    return response.successMessage(req, res, status.REQUEST_SUCCEEDED, 'User changed to a mentor successfully', data);
   }
+
 
   static getAllMentors = async (req, res) => {
     const mentors = [];
@@ -76,7 +62,7 @@ class MentorController {
       return res.status(status.REQUEST_SUCCEEDED).send({
         status: status.REQUEST_SUCCEEDED,
         message: `More informtion about user with id ${mentorId} are`,
-        data: lodash.pick(mentor[0], 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise', 'is_mentor', 'is_admin'),
+        data: lodash.pick(mentor, 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise', 'is_mentor', 'is_admin'),
       });
     } catch (err) {
       return res.status(200).send({

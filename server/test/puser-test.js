@@ -290,7 +290,7 @@ describe('18 GET all Mentor when there is  no mentor user,/api/v1/mentors ', () 
 describe('19. change to mentor with an id not integer', () => {
   it('should return Id should be an integer ', (done) => {
     chai.request(app)
-      .patch('/api/v2/user/q')
+      .patch('/api/v2/user/yc')
       .set('x-auth-token', adminToken)
       .set('Accept', 'application/json')
       .end((err, res) => {
@@ -298,6 +298,20 @@ describe('19. change to mentor with an id not integer', () => {
         expect(res.body.status).to.equal(status.BAD_REQUEST);
         expect(res.body.error).to.equal('Id should be an integer');
         expect(res.status).to.equal(status.BAD_REQUEST);
+        done();
+      });
+  });
+});
+describe('20. change to mentor with an id not found', () => {
+  it('should return Id is not found ', (done) => {
+    chai.request(app)
+      .patch('/api/v2/user/50')
+      .set('x-auth-token', adminToken)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.NOT_FOUND);
+        expect(res.status).to.equal(status.NOT_FOUND);
         done();
       });
   });

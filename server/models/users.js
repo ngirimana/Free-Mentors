@@ -11,7 +11,7 @@ const users = [
     email: 'niyo@gmail.com',
     password: 'amani444444',
     address: 'kigali,Rwanda',
-    bio: 'I am very passionate about sport',
+    bio: ' sport',
     occupation: 'caotch',
     expertise: 'footbal',
 

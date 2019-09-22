@@ -1,15 +1,18 @@
-import status from './StatusCode';
+class response {
+  static errorMessage = (req, res, status, msg) => {
+    res.status(status).json({
+      status,
+      error: msg,
 
-export const notFound = (id, res) => res.status(status.NOT_FOUND).send({
-  status: status.NOT_FOUND,
-  error: `Session with id ${id} does not exist`,
-});
-export const conflict = (id, res) => res.status(status.REQUEST_CONFLICT).send({
-  status: status.REQUEST_CONFLICT,
-  error: `Session with id ${id} is already accepted`,
-});
+    });
+  };
 
-export const serverError = (err, res) => res.status(status.SERVER_ERROR).send({
-  status: status.SERVER_ERROR,
-  error: err,
-});
+  static successMessage = (req, res, status, msg, data) => {
+    res.status(status).json({
+      status,
+      message: msg,
+      data,
+    });
+  };
+}
+export default response;

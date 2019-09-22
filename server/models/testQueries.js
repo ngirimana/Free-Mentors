@@ -27,14 +27,14 @@ INSERT INTO users (
     ) VALUES (
          'Ngirimana',
          'Schadrack',
-        'chadrack@gmail.com',
-        '$2b$10$9DhD.e2mZV/Nma8SEOk.g.F9IJJ17N7IICSeYB8ACrUxXQB20lMjG',
+        'safari@gmail.com',
+        '$2b$10$Bg3o62jmwLyfDWKD3DdiduNuw0r1ZhN5RdFNdDQuiKJtXNJPuN9CW',
         'kigali',
-        'dfbhsbdfhbs sdbfbsfbajsfb  sjfbjabsdjabdj',
+        'dfbhsbdfhbs ',
         'sosftware engineer',
         'python',
         false,
-        false
+        true
 );
 DROP TABLE IF EXISTS sessions CASCADE;
 CREATE TABLE sessions(

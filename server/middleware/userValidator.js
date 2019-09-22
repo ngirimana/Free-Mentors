@@ -15,7 +15,6 @@ const userValidate = (req, res, next) => {
     is_admin: Joi.boolean().default(false),
   };
   const result = Joi.validate(req.body, schema);
-  console.log(req.body);
   if (result.error) {
     return res.status(status.BAD_REQUEST).send({ status: status.BAD_REQUEST, error: `${result.error.details[0].message}` });
   }

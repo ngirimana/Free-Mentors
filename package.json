@@ -7,7 +7,7 @@
     "test": " babel-node  ./server/models/testQueries.js createTables && nyc --reporter=text --reporter=html mocha server/test --require @babel/polyfill --require @babel/register --timeout 10000 --exit ",
     "start": " npm run queries && babel-node ./server/index.js",
     "queries": "babel-node ./server/models/testQueries.js createTables",
-    "dev-start": " nodemon --exec babel-node ./server/index.js",
+    "dev-start": "  nodemon --exec babel-node ./server/index.js ",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "showCoverage": "start coverage/server/index.html"
   },
