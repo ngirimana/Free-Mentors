@@ -17,8 +17,6 @@ const admin = (req, res, error, next) => {
     return res.status(status.FORBIDDEN).send({ status: status.FORBIDDEN, error: 'You are not authorized to perform this action.' });
   }
   next();
-
-  
 };
 
 export default admin;
