@@ -1,5 +1,5 @@
 import express from 'express';
-import MentorController from '../controllers/mentor_controller';
+// import MentorController from '../controllers/mentor_controller';
 import admin from '../middleware/admin';
 
 

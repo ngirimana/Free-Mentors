@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import SessionController from '../controllers/session_controller';
+// import SessionController from '../controllers/session_controller';
 import sessionValidator from '../middleware/sessionsValidator';
 import auth from '../middleware/auth';
 import mentor from '../middleware/mentor';
