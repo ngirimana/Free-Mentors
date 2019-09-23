@@ -1,13 +1,12 @@
-import jwt from 'jsonwebtoken';
+
 import dotenv from 'dotenv';
 import status from '../helpers/StatusCode';
+import verifyToken from '../helpers/verfyToken';
 
 dotenv.config();
 
 const admin = (req, res, err, next) => {
-  const userToken = req.header('x-auth-token');
-
-  const jwtAdmin = jwt.verify(userToken, process.env.SECRETEKEY);
+  const jwtAdmin = verifyToken;
   if (!jwtAdmin) {
     return res.status(status.BAD_REQUEST).send(
       { status: status.BAD_REQUEST, error: err.message },
