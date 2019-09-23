@@ -5,8 +5,8 @@ import admin from '../middleware/admin';
 
 const router = express.Router();
 
-const { changeToMentor } = MentorController;
+//const { changeToMentor } = MentorController;
 
-router.patch('/user/:id', admin, changeToMentor);
+//router.patch('/user/:id', admin, changeToMentor);
 
 export default router;

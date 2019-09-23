@@ -9,10 +9,10 @@ dotenv.config();
 
 const router = express.Router();
 
-const { createSession, acceptSession, rejectSession } = SessionController;
+// const { createSession, acceptSession, rejectSession } = SessionController;
 
-router.post('/sessions', sessionValidator, auth.auth, createSession);
-router.patch('/sessions/:id/accept', mentor, acceptSession);
-router.patch('/sessions/:id/reject', mentor, rejectSession);
+// router.post('/sessions', sessionValidator, auth.auth, createSession);
+// router.patch('/sessions/:id/accept', mentor, acceptSession);
+// router.patch('/sessions/:id/reject', mentor, rejectSession);
 
 export default router;

@@ -14,43 +14,43 @@ class UserController {
   }
 
   static signUp = async (req, res) => {
-    try {
-      let {
-        first_name,
-        last_name,
-        email,
-        password,
-        address,
-        bio,
-        occupation,
-        expertise,
-        is_mentor,
-        is_admin,
-      } = req.body;
+    // try {
+    let {
+      first_name,
+      last_name,
+      email,
+      password,
+      address,
+      bio,
+      occupation,
+      expertise,
+      is_mentor,
+      is_admin,
+    } = req.body;
 
-      is_mentor = false;
-      is_admin = false;
-      const user = await this.model().select('*', 'email=$1', [email]) || [];
-      if (user[0]) {
-        return response.errorMessage(req, res, status.REQUEST_CONFLICT, `${email} is already taken!`);
-      }
-
-      password = await encryptPassword(password);
-      const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
-      const dataa = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
-      const rows = await this.model().insert(columns, dataa) || [];
-      if (rows.length) {
-        let token = generateAuthToken(rows[0].id, rows[0].email,
-          rows[0].is_mentor, rows[0].is_admin);
-        const data = {
-          token,
-          userData: lodash.pick(rows[0], 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise', 'is_mentor', 'is_admin'),
-        };
-        return response.successMessage(req, res, status.RESOURCE_CREATED, 'user created succefully', data);
-      }
-    } catch (error) {
-      return response.errorMessage(req, res, status.SERVER_ERROR, error.message);
+    is_mentor = false;
+    is_admin = false;
+    const user = await this.model().select('*', 'email=$1', [email]) || [];
+    if (user.length) {
+      return response.errorMessage(req, res, status.REQUEST_CONFLICT, `${email} is already taken!`);
     }
+
+    password = await encryptPassword(password);
+    const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
+    const dataa = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
+    const rows = await this.model().insert(columns, dataa) || [];
+    if (rows.length) {
+      let token = generateAuthToken(rows[0].id, rows[0].email,
+        rows[0].is_mentor, rows[0].is_admin);
+      const data = {
+        token,
+        userData: lodash.pick(rows[0], 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise', 'is_mentor', 'is_admin'),
+      };
+      return response.successMessage(req, res, status.RESOURCE_CREATED, 'user created succefully', data);
+    }
+    // } catch (error) {
+    //   return response.errorMessage(req, res, status.SERVER_ERROR, error.message);
+    // }
   }
 
 
