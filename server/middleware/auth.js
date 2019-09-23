@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import Model from '../models/queries';
 import status from '../helpers/StatusCode';
+import verifyToken from '../helpers/verfyToken';
 
 dotenv.config();
 const model = new Model('users');
@@ -10,7 +11,7 @@ const auth = async (req, res, next) => {
   try {
     const token = req.header('x-auth-token');
     if (!token) return res.status(status.UNAUTHORIZED).send({ status: status.UNAUTHORIZED, error: 'Access denied. No token provided' });
-    const decoded_jwt = jwt.verify(token, process.env.SECRETEKEY);
+    const decoded_jwt = verifyToken;
 
     const user = await model.select('*', 'id=$1', [decoded_jwt.id]);
     if (!user.length) {

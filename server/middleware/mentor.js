@@ -1,13 +1,12 @@
-import jwt from 'jsonwebtoken';
+
 import dotenv from 'dotenv';
 import status from '../helpers/StatusCode';
+import verifyToken from '../helpers/verfyToken';
 
 dotenv.config();
 
 const mentor = (req, error, res, next) => {
-  const token = req.header('x-auth-token');
-
-  const decodedJwtMentor = jwt.verify(token, process.env.SECRETEKEY);
+  const decodedJwtMentor = verifyToken;
   if (!decodedJwtMentor) {
     return res.status(status.BAD_REQUEST).send(
       { status: status.BAD_REQUEST, error: error.message },
