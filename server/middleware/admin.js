@@ -5,12 +5,12 @@ import response from '../helpers/response';
 
 class Admin {
   static verifyAdmin(req, res, next) {
-    const token = req.header('x-auth-token');
-    if (!token) {
-      return response.errorMessage(req, res, status.BAD_REQUEST, 'Provide a Token');
+    const adminToken = req.header('x-auth-token');
+    if (!adminToken) {
+      return response.errorMessage(req, res, 400, 'Provide your login or signup  Token');
     }
     try {
-      const decode = verifytoken.verifyadmin(token);
+      const decode = verifytoken.verifyadmin(adminToken);
       if (decode !== true) {
         return response.errorMessage(req, res, status.UNAUTHORIZED, 'You are not a admin,so you are not authorized to perform this task');
       }
