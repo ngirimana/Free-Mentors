@@ -17,7 +17,7 @@ const userValidate = (req, res, next) => {
   };
   const result = Joi.validate(req.body, schema);
   if (result.error) {
-    return response.errorMessage(req, res, status.BAD_REQUEST, `${result.error.details[0].message}`);
+    return res.status(400).send({ status: 400, error: `${result.error.details[0].message}` });
   }
   next();
 };

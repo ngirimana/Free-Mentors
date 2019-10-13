@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import status from '../helpers/StatusCode';
-import response from '../helpers/response';
 
 const userValidate = (req, res, next) => {
   const schema = {
@@ -8,8 +7,8 @@ const userValidate = (req, res, next) => {
     password: Joi.string().alphanum().min(10).required(),
   };
   const result = Joi.validate(req.body, schema);
-  if (result.error) {
-    return response.errorMessage(req, res, status.BAD_REQUEST, `${result.error.details[0].message}`);
+  if (result.error !== null) {
+    return res.status(400).send({ status: status.BAD_REQUEST, error: `${result.error.details[0].message}` });
   }
   next();
 };
