@@ -44,5 +44,84 @@ describe('6. POST SESSIONS,/api/v2/sessions ', () => {
         console.log(err);
       });
   });
-
+  it('should return empty token ', (done) => {
+    chai.request(app)
+      .post('/api/v2/sessions')
+      .set('x-auth-token', invalidToken)
+      .set('Accept', 'application/json')
+      .send(session[3])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return empty token ', (done) => {
+    chai.request(app)
+      .post('/api/v2/sessions')
+      .set('x-auth-token', emptyToken)
+      .set('Accept', 'application/json')
+      .send(session[3])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return empty token ', (done) => {
+    chai.request(app)
+      .post('/api/v2/sessions')
+      .set('x-auth-token', notExistToken)
+      .set('Accept', 'application/json')
+      .send(session[3])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.UNAUTHORIZED);
+        expect(res.body.status).to.equal(status.UNAUTHORIZED);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return post session successfully ', (done) => {
+    chai.request(app)
+      .post('/api/v2/sessions')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .send(session[3])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+  it('should return post session alredy exist ', (done) => {
+    chai.request(app)
+      .post('/api/v2/sessions')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .send(session[3])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_CONFLICT);
+        expect(res.body.status).to.equal(status.REQUEST_CONFLICT);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });
