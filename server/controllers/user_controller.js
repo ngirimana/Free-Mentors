@@ -38,14 +38,14 @@ class UserController {
     const columns = 'first_name, last_name, email, password, address, bio, occupation, expertise, is_mentor, is_admin';
     const dataa = `'${first_name}', '${last_name}', '${email}', '${password}','${address}','${bio}','${occupation}','${expertise}',${is_mentor},${is_admin}`;
     const rows = await this.model().insert(columns, dataa) || [];
-    if (rows.length) {
-      let token = Token.generateAuthToken(rows[0].id, rows[0].email,
+    if (rows.length !== 0) {
+      let signupToken = Token.generateAuthToken(rows[0].id, rows[0].email,
         rows[0].is_mentor, rows[0].is_admin);
-      const data = {
-        token,
+      const returnedData = {
+        signupToken,
         userData: lodash.pick(rows[0], 'id', 'first_name', 'last_name', 'email', 'address', 'bio', 'occupation', 'expertise', 'is_mentor', 'is_admin'),
       };
-      return response.successMessage(req, res, status.RESOURCE_CREATED, 'user created succefully', data);
+      return response.successMessage(req, res, status.RESOURCE_CREATED, 'user created succefully', returnedData);
     }
   }
 
