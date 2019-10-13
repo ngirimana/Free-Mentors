@@ -12,7 +12,7 @@ class Admin {
     try {
       const decode = verifytoken.verifyadmin(adminToken);
       if (decode !== true) {
-        return response.errorMessage(req, res, status.UNAUTHORIZED, 'You are not a admin,so you are not authorized to perform this task');
+        return response.errorMessage(req, res, 401, ' You are not authorized to perform this task because your not admin');
       }
       next();
     } catch (error) {
