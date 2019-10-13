@@ -87,7 +87,7 @@ class SessionController {
       return response.errorMessage(req, res, 403, `Session with Id with id ${id} is not yours`);
     }
     if (sessionToReject[0].status === 'accepted') {
-      return response.errorMessage(req, res, status.REQUEST_CONFLICT, `Session  with id ${mentorDataId} is already accepted`);
+      return response.errorMessage(req, res, 409, `Session  with id ${mentorDataId} was just accepted`);
     }
     const rejectedSession = await this.modelSession().update('status=$1', 'session_id=$2', ['rejected', sessionToReject[0].session_id]);
     return response.successMessage(req, res, status.REQUEST_SUCCEEDED, 'Session is successfully rejected', rejectedSession);
