@@ -1,28 +1,28 @@
-
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
 import Model from '../models/queries';
-import status from '../helpers/StatusCode';
-import verifyToken from '../helpers/verfyToken';
+import verifytoken from '../helpers/tokens';
+import response from '../helpers/response';
 
-dotenv.config();
+
 const model = new Model('users');
-const auth = async (req, res, next) => {
-  try {
-    const token = req.header('x-auth-token');
-    if (!token) return res.status(status.UNAUTHORIZED).send({ status: status.UNAUTHORIZED, error: 'Access denied. No token provided' });
-    const decoded_jwt = verifyToken;
 
-    const user = await model.select('*', 'id=$1', [decoded_jwt.id]);
+
+const verifyAuth = async (req, res, next) => {
+  const authToken = req.header('x-auth-token');
+  if (!authToken) {
+    return response.errorMessage(req, res, 400, 'You haven\'t provide your token');
+  }
+  try {
+    const decode = verifytoken.verifyToken(authToken);
+    const user = await model.select('*', 'id=$1', [decode]);
     if (!user.length) {
-      return res.status(status.NOT_FOUND).send({ status: status.NOT_FOUND, error: 'The User associated with this token doesn\'t exist.' });
+      return response.errorMessage(req, res, 401, 'You are not authorized to perform this task');
     }
+
     next();
   } catch (error) {
-    return res.status(status.BAD_REQUEST).send(
-      { status: status.BAD_REQUEST, error: error.message },
-    );
+    return response.errorMessage(req, res, 400, error.message);
   }
 };
 
-export default { auth };
+
+export default verifyAuth;

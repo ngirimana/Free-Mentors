@@ -37,9 +37,6 @@ describe('1 . POST signup with empty first_name ,api/v1/auth/signup', () => {
         done();
       });
   });
-});
-// 2 empyty lastname
-describe('2. POST sign up with empty last_name, api/v1/auth/signup', () => {
   it('should return last_name is required ', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -52,9 +49,6 @@ describe('2. POST sign up with empty last_name, api/v1/auth/signup', () => {
         done();
       });
   });
-});
-// 3 empyty password
-describe('3. POST sign up with empty password, api/v1/auth/signup', () => {
   it('should return password is required', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -67,9 +61,6 @@ describe('3. POST sign up with empty password, api/v1/auth/signup', () => {
         done();
       });
   });
-});
-// 4 empyty address
-describe('4. POST sign up with empty address, api/v1/auth/signup', () => {
   it('should return address is required', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -82,9 +73,6 @@ describe('4. POST sign up with empty address, api/v1/auth/signup', () => {
         done();
       });
   });
-});
-// 5 empty bio
-describe('5. POST sign up with empty bio, api/v1/auth/signup', () => {
   it('should return bio is required', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -97,9 +85,6 @@ describe('5. POST sign up with empty bio, api/v1/auth/signup', () => {
         done();
       });
   });
-});
-// 6 empty occupation
-describe('6. POST sign up with empty occupation, api/v1/auth/signup', () => {
   it('should return occupation is required', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -112,9 +97,6 @@ describe('6. POST sign up with empty occupation, api/v1/auth/signup', () => {
         done();
       });
   });
-});
-// 7 empty expertise
-describe('7. POST sign up with empty expertise, api/v1/auth/signup', () => {
   it('should return expertise is required', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -127,9 +109,6 @@ describe('7. POST sign up with empty expertise, api/v1/auth/signup', () => {
         done();
       });
   });
-});
-
-describe('POST sign up successfully, api/v2/auth/signup', () => {
   it('should return signup successful', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -142,8 +121,6 @@ describe('POST sign up successfully, api/v2/auth/signup', () => {
         done();
       });
   });
-});
-describe('POST email already exist, api/v2/auth/signup', () => {
   it('should return {email} already exists', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -155,8 +132,6 @@ describe('POST email already exist, api/v2/auth/signup', () => {
         done();
       });
   });
-});
-describe('POST sign up with short password api/v2/auth/signup', () => {
   it('should return error when user entered short password', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -169,8 +144,6 @@ describe('POST sign up with short password api/v2/auth/signup', () => {
         done();
       });
   });
-});
-describe('POST sign up with incomplete data api/v2/auth/signup', () => {
   it('should return error when user signup details is incomplete', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -183,8 +156,6 @@ describe('POST sign up with incomplete data api/v2/auth/signup', () => {
         done();
       });
   });
-});
-describe('POST sign up with invalid email api/v2/auth/signup', () => {
   it('should return error when user email is invalid', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -198,7 +169,8 @@ describe('POST sign up with invalid email api/v2/auth/signup', () => {
       });
   });
 });
-describe('POST signin successfully, api/v2/auth/signin', () => {
+
+describe('3. POST signin successfully, api/v2/auth/signin', () => {
   it('should return signin successfullty status', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signin')
@@ -210,8 +182,7 @@ describe('POST signin successfully, api/v2/auth/signin', () => {
         done();
       });
   });
-});
-describe('POST signin failed, api/v2/auth/signin', () => {
+
   it('should return signin error status', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signin')
@@ -224,8 +195,7 @@ describe('POST signin failed, api/v2/auth/signin', () => {
         done();
       });
   });
-});
-describe('POST signin with incomplete data, api/v2/auth/signin', () => {
+
   it('should return email is required', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signin')
@@ -238,8 +208,6 @@ describe('POST signin with incomplete data, api/v2/auth/signin', () => {
         done();
       });
   });
-});
-describe('POST signin with incomplete data, api/v2/auth/signin', () => {
   it('should return password is required', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signin')
@@ -252,8 +220,6 @@ describe('POST signin with incomplete data, api/v2/auth/signin', () => {
         done();
       });
   });
-});
-describe('POST signin with invalid email, api/v2/auth/signin', () => {
   it('should return email must be valid', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signin')

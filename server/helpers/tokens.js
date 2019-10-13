@@ -2,11 +2,35 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const generateAuthToken = (id, userEmail, mentor, admin) => {
-  const token = jwt.sign({
-    id, email: userEmail, is_mentor: mentor, is_admin: admin,
-  }, 'process.env.SECRETEKEY');
-  return token;
+const Helper = {
+
+  generateAuthToken(id, userEmail, mentor, admin) {
+    const token = jwt.sign({
+      Id: id,
+      email: userEmail,
+      is_mentor: mentor,
+      is_admin: admin,
+    },
+    process.env.SECRETEKEY, { expiresIn: '1d' });
+    return token;
+  },
+
+  verifyToken(token) {
+    const mytoken = jwt.verify(token, process.env.SECRETEKEY);
+    return mytoken.Id;
+  },
+  verifyadmin(token) {
+    const mytoken = jwt.verify(token, process.env.SECRETEKEY);
+    return mytoken.is_admin;
+  },
+  verifymentor(token) {
+    const mytoken = jwt.verify(token, process.env.SECRETEKEY);
+    return mytoken.is_mentor;
+  },
+  userInfosEmail(token) {
+    const mytoken = jwt.verify(token, process.env.SECRETEKEY);
+    return mytoken.email;
+  },
 };
 
-export default generateAuthToken;
+export default Helper;

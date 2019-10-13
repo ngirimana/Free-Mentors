@@ -1,58 +1,59 @@
 import dotenv from 'dotenv';
-import dbConnection from './db';
+import { Pool } from 'pg';
 
 dotenv.config();
-
 class Model {
   constructor(table) {
     this.table = table;
-    this.connection = dbConnection;
-    this.initializeDB();
+
+    this.pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+    });
+
+    // this.pool.on('error', (err, client) => {
+    //   throw err;
+    // });
   }
 
-  async initializeDB() {
-    await this.connection.connect();
-  }
 
+  // CRUD - READ Operation
   async select(columns, clause, values) {
     try {
-      let query;
-      if (clause) {
-        query = `SELECT ${columns} FROM ${this.table} WHERE ${clause}`;
-      } else {
-        query = `SELECT ${columns} FROM ${this.table}`;
-      }
-      const { rows } = await this.connection.pool.query(query, values);
+      const query = `SELECT ${columns} FROM ${this.table} WHERE ${clause}`;
+      const { rows } = await this.pool.query(query, values);
       return rows;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 
+  // CRUD - CREATE Operation
   async insert(columns, selector, values) {
     const query = `INSERT INTO ${this.table} (${columns}) VALUES (${selector}) returning *`;
     try {
-      const { rows } = await this.connection.pool.query(query, values);
+      const { rows } = await this.pool.query(query, values);
       return rows;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 
+  // CRUD - UPDATE Operation
   async update(columns, clause, values) {
     const query = `UPDATE ${this.table} SET ${columns} WHERE ${clause} returning *`;
     try {
-      const { rows } = await this.connection.pool.query(query, values);
+      const { rows } = await this.pool.query(query, values);
       return rows[0];
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   }
 
+  // CRUD - DELETE Operation
   async delete(clause, values) {
     const query = `DELETE FROM ${this.table} WHERE ${clause} returning *`;
     try {
-      const { rows } = await this.connection.pool.query(query, values);
+      const { rows } = await this.pool.query(query, values);
       return rows[0];
     } catch (err) {
       throw err;

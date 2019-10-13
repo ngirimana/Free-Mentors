@@ -1,20 +1,24 @@
 
-import dotenv from 'dotenv';
 import status from '../helpers/StatusCode';
-import verifyToken from '../helpers/verfyToken';
+import verifytoken from '../helpers/tokens';
 import response from '../helpers/response';
 
-dotenv.config();
-
-const admin = (req, res, err, next) => {
-  const jwtAdmin = verifyToken;
-  if (!jwtAdmin) {
-    return response.errorMessage(req, res, status.BAD_REQUEST, err.message);
+class Admin {
+  static verifyAdmin(req, res, next) {
+    const token = req.header('x-auth-token');
+    if (!token) {
+      return response.errorMessage(req, res, status.BAD_REQUEST, 'Provide a Token');
+    }
+    try {
+      const decode = verifytoken.verifyadmin(token);
+      if (decode !== true) {
+        return response.errorMessage(req, res, status.UNAUTHORIZED, 'You are not a admin,so you are not authorized to perform this task');
+      }
+      next();
+    } catch (error) {
+      return response.errorMessage(req, res, status.SERVER_ERROR, error.message);
+    }
   }
-  if (!jwtAdmin.is_admin) {
-    return res.status(status.FORBIDDEN).send({ status: status.FORBIDDEN, error: 'You are not authorized to perform this action.' });
-  }
-  next();
-};
+}
 
-export default admin;
+export default Admin;
