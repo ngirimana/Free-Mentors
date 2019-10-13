@@ -67,7 +67,7 @@ class SessionController {
     if (sessionToAccept[0].mentor_id !== mentorInfosId) {
       return response.errorMessage(req, res, status.FORBIDDEN, `Session with Id with id ${id} does not belong to you`);
     }
-    
+
     if (sessionToAccept[0].status === 'accepted') {
       return response.errorMessage(req, res, status.REQUEST_CONFLICT, `Session  with id ${mentorInfosId} is already accepted`);
     }

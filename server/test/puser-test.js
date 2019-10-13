@@ -121,6 +121,18 @@ describe('1 . POST signup with empty first_name ,api/v1/auth/signup', () => {
         done();
       });
   });
+  it('should return signup successful', (done) => {
+    chai.request(app)
+      .post('/api/v2/auth/signup')
+      .set('Accept', 'application/json')
+      .send(users[1])
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.RESOURCE_CREATED);
+        expect(res.body.status).to.equal(status.RESOURCE_CREATED);
+        done();
+      });
+  });
   it('should return {email} already exists', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signup')
@@ -170,7 +182,7 @@ describe('1 . POST signup with empty first_name ,api/v1/auth/signup', () => {
   });
 });
 
-describe('3. POST signin successfully, api/v2/auth/signin', () => {
+describe('2. POST signin successfully, api/v2/auth/signin', () => {
   it('should return signin successfullty status', (done) => {
     chai.request(app)
       .post('/api/v2/auth/signin')

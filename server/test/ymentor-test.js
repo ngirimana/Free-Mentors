@@ -15,8 +15,8 @@ const invalidToken = 'hbsdvjsd vsdbvjsdnvjds vsdbvjsjcnjsd';
 const notExistToken = jwt.sign({
   id: 0, email: 'gbd@gmail.com', is_admin: false, is_mentor: false,
 },
-  process.env.SECRETEKEY);
-describe(' 4. Patch user to mentor,/api/v2/user/:id', () => {
+process.env.SECRETEKEY);
+describe(' 3. Patch user to mentor,/api/v2/user/:id', () => {
   it('should return mentors are not available', (done) => {
     chai.request(app)
       .get('/api/v2/mentors')
@@ -128,7 +128,7 @@ describe(' 4. Patch user to mentor,/api/v2/user/:id', () => {
       });
   });
 });
-describe('5. admin: GET all Mentor,/api/v1/mentors ', () => {
+describe('4. admin: GET all Mentor,/api/v1/mentors ', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v2/auth/signin').send({
       email: 'safari@gmail.com',
@@ -153,7 +153,7 @@ describe('5. admin: GET all Mentor,/api/v1/mentors ', () => {
       });
   });
 });
-describe('6. mentor:GET specific mentor,/api/v2/mentors/:id ', () => {
+describe('5. mentor:GET specific mentor,/api/v2/mentors/:id ', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v2/auth/signin').send({
       email: 'niyo@gmail.com',
@@ -176,7 +176,19 @@ describe('6. mentor:GET specific mentor,/api/v2/mentors/:id ', () => {
         done();
       });
   });
-  it('should return all specific mentor', (done) => {
+  it('should return not found', (done) => {
+    chai.request(app)
+      .get('/api/v2/mentors/90000')
+      .set('x-auth-token', mentorToken)
+      .set('Accept', 'aplication/json')
+      .end((err, res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.body.status).to.equal(status.NOT_FOUND);
+        expect(res.status).to.equal(status.NOT_FOUND);
+        done();
+      });
+  });
+  it('should return  specific mentor', (done) => {
     chai.request(app)
       .get('/api/v2/mentors/2')
       .set('x-auth-token', mentorToken)
