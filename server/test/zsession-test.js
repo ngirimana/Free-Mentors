@@ -185,7 +185,7 @@ describe('7. PATCH mentor can accept session', () => {
       });
   });
 });
-describe('44 . PATCH mentor can reject session', () => {
+describe(' 8. PATCH mentor can reject session', () => {
   beforeEach((done) => {
     chai.request(app).post('/api/v2/auth/signin').send({
       email: 'niyo@gmail.com',
