@@ -23,9 +23,9 @@ const Helper = {
     const mytoken = jwt.verify(token, process.env.SECRETEKEY);
     return mytoken.is_admin;
   },
-  verifymentor(token) {
-    const mytoken = jwt.verify(token, process.env.SECRETEKEY);
-    return mytoken.is_mentor;
+  verifymentor(userToken) {
+    const yourtoken = jwt.verify(userToken, process.env.SECRETEKEY);
+    return yourtoken.is_mentor;
   },
   userInfosEmail(token) {
     const mytoken = jwt.verify(token, process.env.SECRETEKEY);

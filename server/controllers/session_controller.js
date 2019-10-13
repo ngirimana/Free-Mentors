@@ -78,7 +78,7 @@ class SessionController {
   static rejectSessions = async (req, res) => {
     const mentorDataId = Token.verifyToken(req.header('x-auth-token'));
     const { id } = req.params;
-    if (isNaN(id)) { return notNumber(req, res); }
+    if (isNaN(id)) { return res.status(400).send({ status: 400, error: 'User id should be a number ' }); }
     const sessionToReject = await this.modelSession().select('*', 'session_id=$1', [id]);
     if (!sessionToReject.length) {
       return response.errorMessage(req, res, status.NOT_FOUND, `No mentor available with id ${mentorDataId}`);
