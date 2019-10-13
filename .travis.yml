@@ -1,0 +1,19 @@
+after_success:
+  - "npm run coverage"
+cache:
+  directories:
+    - node_modules
+language: node_js
+node_js:
+  - "10"
+install:
+- npm install
+services:
+- postgresql
+before_script:
+- psql -c 'CREATE DATABASE free_mentors;' -U postgres
+notifications:
+  email: false
+script:
+  - "npm run test"
+sudo: false

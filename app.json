@@ -1,0 +1,445 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Free Mentors is a social initiative where accomplished professionals become role models to young people to provide free mentorship sessions.",
+    "version": "V2",
+    "title": "Free-Mentors",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "chadrackngirimana@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/ngirimana/Free-Mentors/blob/develop/LICENSE.md"
+    }
+  },
+  "basePath": "/api/v2",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Signup"
+        ],
+        "summary": "User signup API",
+        "description": "",
+        "operationId": "signup",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needed to make signup",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signup"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User successfully created"
+          },
+          "400": {
+            "description": "Bad request,Invalid input"
+          },
+          "409": {
+            "description": " User with used email exists"
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "Signin"
+        ],
+        "summary": "User signin API",
+        "description": "",
+        "operationId": "signin",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to make login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/signin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully login"
+          },
+          "400": {
+            "description": "Bad request,Invalid input"
+          },
+          "403": {
+            "description": "Email or password is incorrect"
+          },
+          "401": {
+            "description": "User not exist"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "patch": {
+        "tags": [
+          "Change to mentor"
+        ],
+        "summary": "Admin change user to mentor",
+        "description": "",
+        "operationId": "changeToMentor",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth-token",
+            "in": "header",
+            "type": "string",
+            "description": "The value of admin token"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User account changed to mentor"
+          },
+          "403": {
+            "description": "You are not authorized to perform this action."
+          },
+          "401": {
+            "description": "The User associated with this token doesn't exist."
+          },
+          "400": {
+            "description": "Bad request,invalid user id "
+          }
+        }
+      }
+    },
+    "/mentors": {
+      "get": {
+        "tags": [
+          "View  Mentors"
+        ],
+        "summary": "Returns  mentors",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth-token",
+            "in": "header",
+            "type": "string",
+            "description": "The value of user token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all mentor",
+            "schema": {
+              "type": "object",
+              "example": {
+                "id": 4,
+                "firstName": "ngirimana",
+                "lastName": "schadrack",
+                "email": "schadrack@gmail.com",
+                "password": "andels",
+                "address": "kigali,Rwanda",
+                "bio": "I am a health Doctor",
+                "occupation": "Health Doctor",
+                "expertise": "surgery"
+              }
+            }
+          },
+          "404": {
+            "description": "Mentors are not available"
+          },
+          "403": {
+            "description": "You are not authorized to perform this action."
+          }
+        }
+      }
+    },
+    "/mentors/{id}": {
+      "get": {
+        "tags": [
+          "View specific mentors"
+        ],
+        "summary": "Returns one mentor",
+        "description": " ",
+        "operationId": "getmentor",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the mentor",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "x-auth-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The value of user token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all mentor",
+            "schema": {
+              "type": "object"
+            },
+            "403": {
+              "description": "You are not authorized to perform this action."
+            },
+            "401": {
+              "description": "The User associated with this token doesn't exist."
+            },
+            "400": {
+              "description": "Bad request,invalid mentor id "
+            },
+            "404": {
+              "description": "Mentor with this id does not exist "
+            }
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "tags": [
+          "Create Mentorship session request"
+        ],
+        "summary": "Create mentorship session",
+        "description": "",
+        "operationId": "create sessions",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The value of user token"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created session object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/sessions"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "sessions created successfully"
+          },
+          "400": {
+            "description": "Bad request,Invalid input"
+          },
+          "404": {
+            "description": "Mentor with mentioned id does not exist "
+          },
+          "403": {
+            "description": "You are not authorized to perform this action."
+          },
+          "401": {
+            "description": "The User associated with this token doesn't exist."
+          }
+        }
+      }
+    },
+    "/sessions/{id}/accept": {
+      "patch": {
+        "tags": [
+          "Accept Mentorship session"
+        ],
+        "summary": "accept  mentorship session request",
+        "description": "",
+        "operationId": "acceptRequest",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The value of mentor token"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "acccept mentorship request",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "accepted mentorship successfully"
+          },
+          "400": {
+            "description": "Bad request,Invalid input"
+          },
+          "404": {
+            "description": "Session with mentioned id does not exist "
+          },
+          "403": {
+            "description": "You are not authorized to perform this action."
+          },
+          "401": {
+            "description": "The User associated with this token doesn't exist."
+          }
+        }
+      }
+    },
+    "/sessions/{id}/reject": {
+      "patch": {
+        "tags": [
+          "Reject Mentorship session"
+        ],
+        "summary": "reject mentorship request",
+        "description": "",
+        "operationId": "rejectRequest",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-auth-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The value of mentor token"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "description": "acccept mentorship request",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "accepted mentorship successfully"
+          },
+          "400": {
+            "description": "Bad request,Invalid input"
+          },
+          "404": {
+            "description": "Session with mentioned id does not exist "
+          },
+          "403": {
+            "description": "You are not authorized to perform this action."
+          },
+          "401": {
+            "description": "The User associated with this token doesn't exist."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "signup": {
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "required": true
+        },
+        "last_name": {
+          "type": "string",
+          "required": true
+        },
+        "email": {
+          "type": "string",
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        },
+        "address": {
+          "type": "string",
+          "required": true
+        },
+        "bio": {
+          "type": "string",
+          "required": true
+        },
+        "occupation": {
+          "type": "string",
+          "required": true
+        },
+        "expertise": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "signin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "required": true
+        },
+        "password": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "sessions": {
+      "type": "object",
+      "properties": {
+        "mentorId": {
+          "type": "integer"
+        },
+        "questions": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
