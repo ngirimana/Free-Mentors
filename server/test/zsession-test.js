@@ -76,7 +76,7 @@ describe('6. POST SESSIONS,/api/v2/sessions ', () => {
         console.log(err);
       });
   });
-  it('should return empty token ', (done) => {
+  it('should return nonmentor user ', (done) => {
     chai.request(app)
       .post('/api/v2/sessions')
       .set('x-auth-token', notExistToken)
@@ -108,6 +108,22 @@ describe('6. POST SESSIONS,/api/v2/sessions ', () => {
         console.log(err);
       });
   });
+  it('should return post session successfully ', (done) => {
+    chai.request(app)
+      .post('/api/v2/sessions')
+      .set('x-auth-token', menteeToken)
+      .set('Accept', 'application/json')
+      .send(session[5])
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
   it('should return post session alredy exist ', (done) => {
     chai.request(app)
       .post('/api/v2/sessions')
@@ -118,6 +134,77 @@ describe('6. POST SESSIONS,/api/v2/sessions ', () => {
         expect(res.body).to.be.an('object');
         expect(res.status).to.equal(status.REQUEST_CONFLICT);
         expect(res.body.status).to.equal(status.REQUEST_CONFLICT);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+describe('7. PATCH mentor can accept session', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v2/auth/signin').send({
+      email: 'niyo@gmail.com',
+      password: 'amani444444',
+    }).then((res) => {
+      mentorToken = res.body.data.token;
+      // console.log(res.body.data.token);
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return nonexistuser ', (done) => {
+    chai.request(app)
+      .patch('/api/v2/sessions/1/accept')
+      .set('x-auth-token', invalidToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.BAD_REQUEST);
+        expect(res.body.status).to.equal(status.BAD_REQUEST);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+
+  it('should return session data ', (done) => {
+    chai.request(app)
+      .patch('/api/v2/sessions/1/accept')
+      .set('x-auth-token', mentorToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+});
+describe('44 . PATCH mentor can reject session', () => {
+  beforeEach((done) => {
+    chai.request(app).post('/api/v2/auth/signin').send({
+      email: 'niyo@gmail.com',
+      password: 'amani444444',
+    }).then((res) => {
+      mentorToken = res.body.data.token;
+      done();
+    })
+      .catch((err) => console.log(err));
+  });
+  it('should return session data ', (done) => {
+    chai.request(app)
+      .patch('/api/v2/sessions/2/reject')
+      .set('x-auth-token', mentorToken)
+      .set('Accept', 'application/json')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res.status).to.equal(status.REQUEST_SUCCEEDED);
+        expect(res.body.status).to.equal(status.REQUEST_SUCCEEDED);
         done();
       })
       .catch((err) => {
